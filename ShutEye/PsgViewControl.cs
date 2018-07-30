@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using EDF;
+using OpenTK;
 
 namespace ShutEye
 {
@@ -16,26 +17,46 @@ namespace ShutEye
         public int ChannelSeparation { get; set; } = 10;
         public double ChannelScale { get; set; } = 0.25;
         public double Zoom { get; set; } = 10;
-        
-        private EDFFile EdfFile;
+
+        private Polysomnogram PsgData;
 
         private double _timeOffset = 0;
+
+        private GLControl graphView;
 
         public PsgViewControl()
         {
             InitializeComponent();
 
-            PsgGraphPanel.Paint += PsgGraphPanel_Paint;
+            graphView = new GLControl();
+            graphView.Location = new Point(0, 0);
+            graphView.Dock = DockStyle.Fill;
+            graphView.SendToBack();
+            graphView.Paint += GraphView_Paint;
+
+            Controls.Add(graphView);
+
+            DoubleBuffered = true;
+        }
+
+        private void GraphView_Paint(object sender, PaintEventArgs e)
+        {
+            graphView.MakeCurrent();
+            
+            OpenTK.Graphics.OpenGL.GL.ClearColor(Color.CornflowerBlue);
+            OpenTK.Graphics.OpenGL.GL.Clear(OpenTK.Graphics.OpenGL.ClearBufferMask.ColorBufferBit);
+
+            
+            graphView.SwapBuffers();
         }
 
         public void SetEdfFile(EDFFile edfFile)
         {
-            EdfFile = edfFile;
-            
-            TimelineScrollBar.Minimum = 0;
-            TimelineScrollBar.Maximum = EdfFile.Header.NumberOfDataRecords * EdfFile.Header.DurationOfDataRecordInSeconds;
 
-            PsgGraphPanel.Invalidate();
+            PsgData = new Polysomnogram(edfFile);
+
+            TimelineScrollBar.Minimum = 0;
+            TimelineScrollBar.Maximum = (int) PsgData.Duration;
         }
 
         private void PsgGraphPanel_Paint(object sender, PaintEventArgs e)
@@ -44,35 +65,33 @@ namespace ShutEye
 
             g.Clear(BackColor);
 
-            if(EdfFile == null) return;
+            Random rng = new Random();
+
+            if(PsgData == null) return;
 
             for(int signalIndex = 0; signalIndex < 12; signalIndex++)
             {
-                string signalKey = EdfFile.Header.Signals[signalIndex].IndexNumberWithLabel;
+                double sampleRate = PsgData.SampleRate;
 
-                double sampleRate = EdfFile.Header.Signals[0].NumberOfSamplesPerDataRecord * EdfFile.Header.DurationOfDataRecordInSeconds;
                 int initialIndex = (int) Math.Floor(_timeOffset * sampleRate);
-                int windowLength = (int) Math.Ceiling(PsgGraphPanel.Width / Zoom);
+                int windowLength = (int) Math.Ceiling(graphView.Width / Zoom);
 
                 int xStart = 0;
                 int yStart = 10 + signalIndex * ChannelSeparation + ChannelSeparation / 2;
-                
+
                 float prevSample = 0.0F;
 
                 for(int i = 0; i < windowLength; i++)
                 {
-                    int recordIndex = (initialIndex + i) / EdfFile.Header.Signals[signalIndex].NumberOfSamplesPerDataRecord;
-                    int indexInRecord = (initialIndex + i) % EdfFile.Header.Signals[signalIndex].NumberOfSamplesPerDataRecord;
-                    
-                    float sample = EdfFile.DataRecords[recordIndex][signalIndex + 1][indexInRecord];
+                    float sample = PsgData.Channels[signalIndex].Data[initialIndex + i];
 
-                    if (i != initialIndex)
+                    if(i != initialIndex)
                     {
-                        g.DrawLine(Pens.Black, 
-                            (float)(xStart + (i - 1) * Zoom), 
-                            (float)(yStart + prevSample * ChannelScale),
-                            (float)(xStart + i * Zoom), 
-                            (float)(yStart + sample * ChannelScale));
+                        g.DrawLine(Pens.Black,
+                            (float) (xStart + (i - 1) * Zoom),
+                            (float) (yStart + prevSample * ChannelScale),
+                            (float) (xStart + i * Zoom),
+                            (float) (yStart + sample * ChannelScale));
                     }
 
                     prevSample = sample;
@@ -83,8 +102,24 @@ namespace ShutEye
 
         private void TimelineScrollBar_Scroll(object sender, ScrollEventArgs e)
         {
+            //_timeOffset = TimelineScrollBar.Value;
+            //PsgGraphPanel.Invalidate();
+        }
+
+        private void TimelineScrollBar_ValueChanged(object sender, EventArgs e)
+        {
             _timeOffset = TimelineScrollBar.Value;
-            PsgGraphPanel.Invalidate();
+        }
+
+        private void PsgViewControl_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+
+            base.OnPaint(e);
         }
     }
 }

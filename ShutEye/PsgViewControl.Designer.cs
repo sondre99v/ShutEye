@@ -28,17 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.PsgGraphPanel = new System.Windows.Forms.Panel();
             this.TimelineScrollBar = new System.Windows.Forms.HScrollBar();
             this.SuspendLayout();
-            // 
-            // PsgGraphPanel
-            // 
-            this.PsgGraphPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PsgGraphPanel.Location = new System.Drawing.Point(0, 0);
-            this.PsgGraphPanel.Name = "PsgGraphPanel";
-            this.PsgGraphPanel.Size = new System.Drawing.Size(663, 299);
-            this.PsgGraphPanel.TabIndex = 0;
             // 
             // TimelineScrollBar
             // 
@@ -48,22 +39,21 @@
             this.TimelineScrollBar.Size = new System.Drawing.Size(663, 17);
             this.TimelineScrollBar.TabIndex = 1;
             this.TimelineScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TimelineScrollBar_Scroll);
+            this.TimelineScrollBar.ValueChanged += new System.EventHandler(this.TimelineScrollBar_ValueChanged);
             // 
             // PsgViewControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.PsgGraphPanel);
             this.Controls.Add(this.TimelineScrollBar);
             this.Name = "PsgViewControl";
             this.Size = new System.Drawing.Size(663, 316);
+            this.Load += new System.EventHandler(this.PsgViewControl_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel PsgGraphPanel;
         private System.Windows.Forms.HScrollBar TimelineScrollBar;
     }
 }

@@ -2,38 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using EDF;
 
 namespace ShutEye
 {
     class Polysomnogram
     {
-        public double ScrollPosition { get; set; } = 0;
-        public double ZoomScale { get; set; } = 100;
-        public double SampleRate { get; set; }
-        public double DataLength { get; set; }
-        public int SamplesPrChannel { get => (int) (SampleRate * DataLength); }
+        public float SampleRate { get; set; }
+        public float Duration { get; set; }
 
-        PsgChannel[] Channels;
+        public int SamplesPrChannel { get => (int) (SampleRate * Duration); }
 
-        public Polysomnogram()
+        public PsgChannel[] Channels;
+
+        public Polysomnogram(EDFFile edfFile)
         {
             // Load file
-            Channels = new PsgChannel[6];
-            SampleRate = 10000;
-            DataLength = 10;
-            Random rng = new Random("hei".GetHashCode());
+            Channels = new PsgChannel[edfFile.Header.NumberOfSignalsInDataRecord];
+            SampleRate = edfFile.Header.Signals[0].NumberOfSamplesPerDataRecord / edfFile.Header.DurationOfDataRecordInSeconds;
+            Duration = edfFile.Header.DurationOfDataRecordInSeconds * edfFile.Header.NumberOfDataRecords;
 
-            for(int i = 0; i < 6; i++)
+            for(int i = 0; i < Channels.Length; i++)
             {
-                double[] data = new double[SamplesPrChannel];
-
-                for(int s = 0; s < data.Length; s++)
-                {
-                    data[s] = rng.NextDouble();
-                }
-
-                Channels[i] = new PsgChannel(data, SampleRate);
+                Channels[i] = new PsgChannel(edfFile, i);
             }
         }
     }
