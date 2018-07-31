@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShutEye", "ShutEye\ShutEye.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDF", "ShutEye\EDFRead\EDF.csproj", "{70A3A9A6-4D12-484A-8E08-299C78D97316}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDF.Test", "EDF.Test\EDF.Test.csproj", "{31137A07-D8A1-4808-8473-2D9E8EFD9B41}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{70A3A9A6-4D12-484A-8E08-299C78D97316}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70A3A9A6-4D12-484A-8E08-299C78D97316}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70A3A9A6-4D12-484A-8E08-299C78D97316}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31137A07-D8A1-4808-8473-2D9E8EFD9B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31137A07-D8A1-4808-8473-2D9E8EFD9B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31137A07-D8A1-4808-8473-2D9E8EFD9B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31137A07-D8A1-4808-8473-2D9E8EFD9B41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
