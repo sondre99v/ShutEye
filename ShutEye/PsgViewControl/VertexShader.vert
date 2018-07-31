@@ -5,6 +5,9 @@ uniform float OffsetY;
 uniform float ScaleX;
 uniform float TimeOffset;
 
+uniform float ViewWidth;
+uniform float ViewHeight;
+
 out float shade;
 
 void main()

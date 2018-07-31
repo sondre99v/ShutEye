@@ -85,7 +85,7 @@ namespace ShutEye
 
 		public void LoadChannelData(Timeseries[] channels)
 		{
-			_dataChannels = channels.Take(6).ToArray();
+			_dataChannels = channels;
 
 			// TODO: Delete old vertex/buffer data if we are loading a new file?
 
@@ -127,7 +127,7 @@ namespace ShutEye
 			
 			for(int i = 0; _dataChannels != null && i < _dataChannels.Length; i++)
 			{
-				GL.Uniform1(_yOffsetUniformID, (float) i / 4 - 0.75F);
+				GL.Uniform1(_yOffsetUniformID, (float) (13 - i) / 15);
 				GL.Uniform1(_timeScaleUniformID, 2.0F/4000);
 
 				GL.BindVertexArray(_vertexArrayObjects[i]);

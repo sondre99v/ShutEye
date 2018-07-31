@@ -17,19 +17,21 @@ namespace ShutEye
 
 		public void LoadFromEdfFile(EDFFile file, int channelIndex)
 		{
-			Label = file.Header.Signals[channelIndex].Label;
-			SampleRate = file.Header.Signals[channelIndex].NumberOfSamplesPerDataRecord / file.Header.DurationOfDataRecordInSeconds;
+			EDFSignal signal = file.Header.Signals[channelIndex];
 
-			int numberOfSamples = file.Header.Signals[channelIndex].NumberOfSamplesPerDataRecord * file.Header.NumberOfDataRecords;
+			Label = signal.Label;
+			SampleRate = signal.NumberOfSamplesPerDataRecord / file.Header.DurationOfDataRecordInSeconds;
+
+			int numberOfSamples = signal.NumberOfSamplesPerDataRecord * file.Header.NumberOfDataRecords;
 
 			Data = new float[numberOfSamples];
 
 			for(int i = 0; i < Data.Length; i++)
 			{
-				EDFDataRecord record = file.DataRecords[i / file.Header.Signals[channelIndex].NumberOfSamplesPerDataRecord];
-				List<float> recordData = record[channelIndex + 1];
+				EDFDataRecord record = file.DataRecords[i / signal.NumberOfSamplesPerDataRecord];
+				List<float> recordData = record[signal.IndexNumber];
 
-				Data[i] = recordData[i % file.Header.Signals[channelIndex].NumberOfSamplesPerDataRecord];
+				Data[i] = recordData[i % signal.NumberOfSamplesPerDataRecord];
 			}
 		}
 	}

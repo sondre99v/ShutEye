@@ -22,8 +22,6 @@ namespace ShutEye
 
 		private Polysomnogram PsgData;
 
-		private double _timeOffset = 0;
-
 		public PsgViewControl()
 		{
 			PsgData = new Polysomnogram();
@@ -72,9 +70,12 @@ namespace ShutEye
 				data[i].SampleRate = 200;
 				data[i].Data = new float[40000];
 
+				float filter = 0;
+
 				for(int j = 0; j < data[i].Data.Length; j++)
 				{
-					data[i].Data[j] = (float)(rng.NextDouble() - 0.5) * 2.0F;
+					float s = (float)(rng.NextDouble() - 0.5) * 60.0F;
+					filter = data[i].Data[j] = filter * 0.99F + 0.1F * s;
 				}
 			}
 

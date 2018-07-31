@@ -67,6 +67,18 @@
     <Compile Include="PsgViewControl\GLGraphView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="PsgViewControl\PsgChannelHeaderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PsgViewControl\PsgChannelHeaderControl.Designer.cs">
+      <DependentUpon>PsgChannelHeaderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PsgViewControl\PsgViewChannelHeadersControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PsgViewControl\PsgViewChannelHeadersControl.Designer.cs">
+      <DependentUpon>PsgViewChannelHeadersControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Timeseries.cs" />
     <Compile Include="PsgViewControl\PsgViewControl.cs">
       <SubType>UserControl</SubType>
@@ -86,6 +98,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="PsgViewControl\PsgChannelHeaderControl.resx">
+      <DependentUpon>PsgChannelHeaderControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PsgViewControl\PsgViewChannelHeadersControl.resx">
+      <DependentUpon>PsgViewChannelHeadersControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PsgViewControl\PsgViewControl.resx">
       <DependentUpon>PsgViewControl.cs</DependentUpon>
     </EmbeddedResource>

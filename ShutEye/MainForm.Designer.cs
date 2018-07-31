@@ -30,8 +30,8 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.button1 = new System.Windows.Forms.Button();
-			this.psgViewControl1 = new ShutEye.PsgViewControl();
 			this.button2 = new System.Windows.Forms.Button();
+			this.psgViewControl1 = new ShutEye.PsgViewControl();
 			this.SuspendLayout();
 			// 
 			// button1
@@ -44,17 +44,6 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
-			// psgViewControl1
-			// 
-			this.psgViewControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.psgViewControl1.ChannelScale = 1D;
-			this.psgViewControl1.ChannelSeparation = 100;
-			this.psgViewControl1.Location = new System.Drawing.Point(178, 23);
-			this.psgViewControl1.Name = "psgViewControl1";
-			this.psgViewControl1.Size = new System.Drawing.Size(575, 324);
-			this.psgViewControl1.TabIndex = 0;
-			this.psgViewControl1.Zoom = 10D;
-			// 
 			// button2
 			// 
 			this.button2.Location = new System.Drawing.Point(12, 41);
@@ -65,11 +54,22 @@
 			this.button2.UseVisualStyleBackColor = true;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
+			// psgViewControl1
+			// 
+			this.psgViewControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.psgViewControl1.ChannelScale = 1D;
+			this.psgViewControl1.ChannelSeparation = 100;
+			this.psgViewControl1.Location = new System.Drawing.Point(107, 12);
+			this.psgViewControl1.Name = "psgViewControl1";
+			this.psgViewControl1.Size = new System.Drawing.Size(682, 370);
+			this.psgViewControl1.TabIndex = 0;
+			this.psgViewControl1.Zoom = 10D;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(805, 409);
+			this.ClientSize = new System.Drawing.Size(801, 633);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.psgViewControl1);
