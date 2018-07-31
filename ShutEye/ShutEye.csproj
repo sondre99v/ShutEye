@@ -100,8 +100,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="PsgViewControl\FragmentShader.glsl" />
-    <EmbeddedResource Include="PsgViewControl\VertexShader.glsl" />
+    <EmbeddedResource Include="PsgViewControl\FragmentShader.frag" />
+    <EmbeddedResource Include="PsgViewControl\VertexShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

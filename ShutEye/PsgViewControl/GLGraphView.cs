@@ -41,9 +41,9 @@ namespace ShutEye
             
             // Compile Shaders
             string vertex_shader_source = new System.IO.StreamReader(
-                System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("ShutEye.PsgViewControl.VertexShader.glsl")).ReadToEnd();
+                System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("ShutEye.PsgViewControl.VertexShader.vert")).ReadToEnd();
             string fragment_shader_source = new System.IO.StreamReader(
-                System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("ShutEye.PsgViewControl.FragmentShader.glsl")).ReadToEnd();
+                System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("ShutEye.PsgViewControl.FragmentShader.frag")).ReadToEnd();
 
             int VertexShaderID = GL.CreateShader(ShaderType.VertexShader);
             GL.ShaderSource(VertexShaderID, vertex_shader_source);
