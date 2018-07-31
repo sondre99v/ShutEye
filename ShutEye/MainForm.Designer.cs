@@ -34,7 +34,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(21, 108);
+            this.button1.Location = new System.Drawing.Point(12, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -47,7 +47,7 @@
             this.psgViewControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.psgViewControl1.ChannelScale = 1D;
             this.psgViewControl1.ChannelSeparation = 100;
-            this.psgViewControl1.Location = new System.Drawing.Point(156, 41);
+            this.psgViewControl1.Location = new System.Drawing.Point(178, 25);
             this.psgViewControl1.Name = "psgViewControl1";
             this.psgViewControl1.Size = new System.Drawing.Size(575, 324);
             this.psgViewControl1.TabIndex = 0;

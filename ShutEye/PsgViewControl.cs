@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using EDF;
 using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 
 namespace ShutEye
 {
@@ -26,35 +28,53 @@ namespace ShutEye
 
         public PsgViewControl()
         {
-            InitializeComponent();
+            PsgData = new Polysomnogram();
 
             graphView = new GLControl();
             graphView.Location = new Point(0, 0);
             graphView.Dock = DockStyle.Fill;
-            graphView.SendToBack();
             graphView.Paint += GraphView_Paint;
 
             Controls.Add(graphView);
+
+            InitializeComponent();
 
             DoubleBuffered = true;
         }
 
         private void GraphView_Paint(object sender, PaintEventArgs e)
         {
+            if (DesignMode) return;
+
             graphView.MakeCurrent();
             
-            OpenTK.Graphics.OpenGL.GL.ClearColor(Color.CornflowerBlue);
-            OpenTK.Graphics.OpenGL.GL.Clear(OpenTK.Graphics.OpenGL.ClearBufferMask.ColorBufferBit);
+            float x = (float)TimelineScrollBar.Value / TimelineScrollBar.Maximum;
 
+            x = (x - 0.5F) * 2.0F * 0.9F;
+
+            GL.ClearColor(Color.CornflowerBlue);
+            GL.Clear(ClearBufferMask.ColorBufferBit);
             
+            GL.Begin(BeginMode.Quads);
+            GL.Color3(Color.DarkGreen);
+            GL.Vertex2(0.9, 0.9);
+            GL.Vertex2(-0.9, 0.9);
+            GL.Vertex2(-0.9, -0.9);
+            GL.Vertex2(0.9, -0.9);
+            
+            GL.Color3(Color.Beige);
+            GL.Vertex2(x + 0.1, 1.0);
+            GL.Vertex2(x - 0.1, 1.0);
+            GL.Vertex2(x - 0.1, -1.0);
+            GL.Vertex2(x + 0.1, -1.0);
+            GL.End();
+
             graphView.SwapBuffers();
         }
 
         public void SetEdfFile(EDFFile edfFile)
         {
-
-            PsgData = new Polysomnogram(edfFile);
-
+            PsgData.LoadFromEdfFile(edfFile);
             TimelineScrollBar.Minimum = 0;
             TimelineScrollBar.Maximum = (int) PsgData.Duration;
         }
@@ -102,24 +122,13 @@ namespace ShutEye
 
         private void TimelineScrollBar_Scroll(object sender, ScrollEventArgs e)
         {
-            //_timeOffset = TimelineScrollBar.Value;
-            //PsgGraphPanel.Invalidate();
+            _timeOffset = TimelineScrollBar.Value;
+            graphView.Invalidate();
         }
 
         private void TimelineScrollBar_ValueChanged(object sender, EventArgs e)
         {
             _timeOffset = TimelineScrollBar.Value;
-        }
-
-        private void PsgViewControl_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-
-            base.OnPaint(e);
         }
     }
 }

@@ -9,23 +9,24 @@ namespace ShutEye
     class Polysomnogram
     {
         public float SampleRate { get; set; }
+
         public float Duration { get; set; }
 
         public int SamplesPrChannel { get => (int) (SampleRate * Duration); }
 
         public Timeseries[] Channels;
 
-        public Polysomnogram(EDFFile edfFile)
+        
+        public void LoadFromEdfFile(EDFFile file)
         {
-            // Load file
-            Channels = new Timeseries[edfFile.Header.NumberOfSignalsInDataRecord];
-            SampleRate = edfFile.Header.Signals[0].NumberOfSamplesPerDataRecord / edfFile.Header.DurationOfDataRecordInSeconds;
-            Duration = edfFile.Header.DurationOfDataRecordInSeconds * edfFile.Header.NumberOfDataRecords;
+            Channels = new Timeseries[file.Header.NumberOfSignalsInDataRecord];
+            SampleRate = file.Header.Signals[0].NumberOfSamplesPerDataRecord / file.Header.DurationOfDataRecordInSeconds;
+            Duration = file.Header.DurationOfDataRecordInSeconds * file.Header.NumberOfDataRecords;
 
             for(int i = 0; i < Channels.Length; i++)
             {
                 Channels[i] = new Timeseries();
-                Channels[i].LoadFromEdfFile(edfFile, i);
+                Channels[i].LoadFromEdfFile(file, i);
             }
         }
     }

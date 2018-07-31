@@ -48,7 +48,6 @@
             this.Controls.Add(this.TimelineScrollBar);
             this.Name = "PsgViewControl";
             this.Size = new System.Drawing.Size(663, 316);
-            this.Load += new System.EventHandler(this.PsgViewControl_Load);
             this.ResumeLayout(false);
 
         }
