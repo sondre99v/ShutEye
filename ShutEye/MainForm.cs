@@ -13,8 +13,6 @@ namespace ShutEye
 {
     public partial class MainForm: Form
     {
-        EDFFile EdfFile;
-
         public MainForm()
         {
             InitializeComponent();
@@ -22,12 +20,10 @@ namespace ShutEye
 
         private void button1_Click(object sender, EventArgs e)
         {
-            EdfFile = new EDFFile();
+            EDFFile EdfFile = new EDFFile();
 
             EdfFile.readFile("../../../ExampleData/36.rec");
-
-            MessageBox.Show("Done!");
-
+            
             psgViewControl1.SetEdfFile(EdfFile);
             psgViewControl1.Invalidate();
             psgViewControl1.Update();

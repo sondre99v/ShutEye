@@ -64,11 +64,14 @@
     <Compile Include="Polysomnogram.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Timeseries.cs" />
-    <Compile Include="PsgViewControl.cs">
+    <Compile Include="PsgViewControl\GLGraphView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PsgViewControl.Designer.cs">
+    <Compile Include="Timeseries.cs" />
+    <Compile Include="PsgViewControl\PsgViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PsgViewControl\PsgViewControl.Designer.cs">
       <DependentUpon>PsgViewControl.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
@@ -83,7 +86,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="PsgViewControl.resx">
+    <EmbeddedResource Include="PsgViewControl\PsgViewControl.resx">
       <DependentUpon>PsgViewControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="OpenTK.dll.config" />
@@ -97,6 +100,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="PsgViewControl\FragmentShader.glsl" />
+    <EmbeddedResource Include="PsgViewControl\VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
