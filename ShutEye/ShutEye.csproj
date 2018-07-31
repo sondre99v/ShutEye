@@ -102,7 +102,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="EDFRead\EDF.csproj">
+    <ProjectReference Include="..\EDFRead\EDF.csproj">
       <Project>{70a3a9a6-4d12-484a-8e08-299c78d97316}</Project>
       <Name>EDF</Name>
     </ProjectReference>

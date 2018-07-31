@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShutEye", "ShutEye\ShutEye.csproj", "{DA478D19-F8D4-461A-B276-DF1D179A74B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDF", "ShutEye\EDFRead\EDF.csproj", "{70A3A9A6-4D12-484A-8E08-299C78D97316}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDF", "EDFRead\EDF.csproj", "{70A3A9A6-4D12-484A-8E08-299C78D97316}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
