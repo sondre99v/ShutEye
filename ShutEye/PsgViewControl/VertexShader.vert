@@ -1,7 +1,14 @@
 ﻿#version 150
 in float sampleData;
 
+uniform float OffsetY;
+uniform float ScaleX;
+uniform float TimeOffset;
+
+out float shade;
+
 void main()
 {
-	gl_Position = vec4(gl_VertexID, sampleData, 0.0, 1.0); 
+	shade = (sampleData + 1.0) / 2;
+	gl_Position = vec4((float(gl_VertexID) - TimeOffset * 200.0) * ScaleX - 0.9, (sampleData * 0.001) + OffsetY, 0.0, 1.0); 
 }

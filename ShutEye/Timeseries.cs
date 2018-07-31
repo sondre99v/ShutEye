@@ -9,9 +9,9 @@ namespace ShutEye
 {
 	class Timeseries
 	{
-		public string Label { get; private set; }
+		public string Label { get; /*private*/ set; }
 
-		public float SampleRate { get; private set; }
+		public float SampleRate { get; /*private*/ set; }
 
 		public float[] Data;
 

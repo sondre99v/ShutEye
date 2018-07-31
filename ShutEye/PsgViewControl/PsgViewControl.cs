@@ -55,15 +55,44 @@ namespace ShutEye
 		{
 			PsgData.LoadFromEdfFile(edfFile);
 			TimelineScrollBar.Minimum = 0;
-			TimelineScrollBar.Maximum = (int) PsgData.Duration;
+			TimelineScrollBar.Maximum = (int) PsgData.Duration + TimelineScrollBar.LargeChange - 1;
 
-			graphViewControl.DataChannels.AddRange(PsgData.Channels);
+			graphViewControl.LoadChannelData(PsgData.Channels);
+		}
+
+		public void LoadRandomData()
+		{
+			Timeseries[] data = new Timeseries[7];
+			Random rng = new Random("hei".GetHashCode());
+
+			for(int i = 0; i < data.Length; i++)
+			{
+				data[i] = new Timeseries();
+				data[i].Label = $"Example {i + 1}";
+				data[i].SampleRate = 200;
+				data[i].Data = new float[40000];
+
+				for(int j = 0; j < data[i].Data.Length; j++)
+				{
+					data[i].Data[j] = (float)(rng.NextDouble() - 0.5) * 2.0F;
+				}
+			}
+
+			TimelineScrollBar.Maximum = (int)(data[0].Data.Length / data[0].SampleRate) + TimelineScrollBar.LargeChange - 1;
+
+			graphViewControl.LoadChannelData(data);
 		}
 
 		private void TimelineScrollBar_Scroll(object sender, ScrollEventArgs e)
 		{
-			graphViewControl.TimeOffset = (float) TimelineScrollBar.Value / (TimelineScrollBar.Maximum - TimelineScrollBar.LargeChange - 1);
+			graphViewControl.TimeOffset = TimelineScrollBar.Value;
 			graphViewControl.Invalidate();
+		}
+
+		protected override void OnInvalidated(InvalidateEventArgs e)
+		{
+			graphViewControl.Invalidate();
+			base.OnInvalidated(e);
 		}
 	}
 }

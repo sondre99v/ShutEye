@@ -28,5 +28,11 @@ namespace ShutEye
 			psgViewControl1.Invalidate();
 			psgViewControl1.Update();
 		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			psgViewControl1.LoadRandomData();
+			psgViewControl1.Invalidate();
+		}
 	}
 }
