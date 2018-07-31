@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDF", "ShutEye\EDFRead\EDF.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDF.Test", "EDF.Test\EDF.Test.csproj", "{31137A07-D8A1-4808-8473-2D9E8EFD9B41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdfFile", "EdfFile\EdfFile.csproj", "{D870F49C-28B4-49BB-8564-BC4223E8305E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{31137A07-D8A1-4808-8473-2D9E8EFD9B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31137A07-D8A1-4808-8473-2D9E8EFD9B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31137A07-D8A1-4808-8473-2D9E8EFD9B41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D870F49C-28B4-49BB-8564-BC4223E8305E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D870F49C-28B4-49BB-8564-BC4223E8305E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D870F49C-28B4-49BB-8564-BC4223E8305E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D870F49C-28B4-49BB-8564-BC4223E8305E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

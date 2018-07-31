@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EDF
+namespace EdfFile
 {
     public class EDFLocalRecordingIdentification
     {
