@@ -11,22 +11,22 @@ using EDF;
 
 namespace ShutEye
 {
-    public partial class MainForm: Form
-    {
-        public MainForm()
-        {
-            InitializeComponent();
-        }
+	public partial class MainForm: Form
+	{
+		public MainForm()
+		{
+			InitializeComponent();
+		}
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            EDFFile EdfFile = new EDFFile();
+		private void button1_Click(object sender, EventArgs e)
+		{
+			EDFFile EdfFile = new EDFFile();
 
-            EdfFile.readFile("../../../ExampleData/36.rec");
-            
-            psgViewControl1.SetEdfFile(EdfFile);
-            psgViewControl1.Invalidate();
-            psgViewControl1.Update();
-        }
-    }
+			EdfFile.readFile("../../../ExampleData/36.rec");
+
+			psgViewControl1.SetEdfFile(EdfFile);
+			psgViewControl1.Invalidate();
+			psgViewControl1.Update();
+		}
+	}
 }

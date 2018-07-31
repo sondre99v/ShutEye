@@ -14,56 +14,56 @@ using OpenTK.Graphics.OpenGL;
 
 namespace ShutEye
 {
-    public partial class PsgViewControl: UserControl
-    {
-        public int ChannelSeparation { get; set; } = 10;
-        public double ChannelScale { get; set; } = 0.25;
-        public double Zoom { get; set; } = 10;
+	public partial class PsgViewControl: UserControl
+	{
+		public int ChannelSeparation { get; set; } = 10;
+		public double ChannelScale { get; set; } = 0.25;
+		public double Zoom { get; set; } = 10;
 
-        private Polysomnogram PsgData;
+		private Polysomnogram PsgData;
 
-        private double _timeOffset = 0;
+		private double _timeOffset = 0;
 
-        public PsgViewControl()
-        {
-            PsgData = new Polysomnogram();
+		public PsgViewControl()
+		{
+			PsgData = new Polysomnogram();
 
-            InitializeComponent();
+			InitializeComponent();
 
-            DoubleBuffered = true;
+			DoubleBuffered = true;
 
-            MouseWheel += PsgViewControl_MouseWheel;
-        }
+			MouseWheel += PsgViewControl_MouseWheel;
+		}
 
-        private void PsgViewControl_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (e.Delta < 0 && TimelineScrollBar.Value - TimelineScrollBar.SmallChange >= TimelineScrollBar.Minimum)
-            {
-                TimelineScrollBar.Value -= TimelineScrollBar.SmallChange;
-            }
-            else if (e.Delta > 0 && TimelineScrollBar.Value + TimelineScrollBar.SmallChange <= TimelineScrollBar.Maximum)
-            {
-                TimelineScrollBar.Value += TimelineScrollBar.SmallChange;
-            }
+		private void PsgViewControl_MouseWheel(object sender, MouseEventArgs e)
+		{
+			if(e.Delta < 0 && TimelineScrollBar.Value - TimelineScrollBar.SmallChange >= TimelineScrollBar.Minimum)
+			{
+				TimelineScrollBar.Value -= TimelineScrollBar.SmallChange;
+			}
+			else if(e.Delta > 0 && TimelineScrollBar.Value + TimelineScrollBar.SmallChange <= TimelineScrollBar.Maximum)
+			{
+				TimelineScrollBar.Value += TimelineScrollBar.SmallChange;
+			}
 
-            
-            graphViewControl.TimeOffset = (float)TimelineScrollBar.Value / (TimelineScrollBar.Maximum - TimelineScrollBar.LargeChange - 1);
-            graphViewControl.Invalidate();
-        }
 
-        public void SetEdfFile(EDFFile edfFile)
-        {
-            PsgData.LoadFromEdfFile(edfFile);
-            TimelineScrollBar.Minimum = 0;
-            TimelineScrollBar.Maximum = (int) PsgData.Duration;
+			graphViewControl.TimeOffset = (float) TimelineScrollBar.Value / (TimelineScrollBar.Maximum - TimelineScrollBar.LargeChange - 1);
+			graphViewControl.Invalidate();
+		}
 
-            graphViewControl.DataChannels.AddRange(PsgData.Channels);
-        }
+		public void SetEdfFile(EDFFile edfFile)
+		{
+			PsgData.LoadFromEdfFile(edfFile);
+			TimelineScrollBar.Minimum = 0;
+			TimelineScrollBar.Maximum = (int) PsgData.Duration;
 
-        private void TimelineScrollBar_Scroll(object sender, ScrollEventArgs e)
-        {
-            graphViewControl.TimeOffset = (float)TimelineScrollBar.Value / (TimelineScrollBar.Maximum - TimelineScrollBar.LargeChange - 1);
-            graphViewControl.Invalidate();
-        }
-    }
+			graphViewControl.DataChannels.AddRange(PsgData.Channels);
+		}
+
+		private void TimelineScrollBar_Scroll(object sender, ScrollEventArgs e)
+		{
+			graphViewControl.TimeOffset = (float) TimelineScrollBar.Value / (TimelineScrollBar.Maximum - TimelineScrollBar.LargeChange - 1);
+			graphViewControl.Invalidate();
+		}
+	}
 }
