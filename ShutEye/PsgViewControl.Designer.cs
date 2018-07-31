@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.TimelineScrollBar = new System.Windows.Forms.HScrollBar();
+            this.graphViewGLControl = new OpenTK.GLControl();
             this.SuspendLayout();
             // 
             // TimelineScrollBar
@@ -41,10 +42,22 @@
             this.TimelineScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TimelineScrollBar_Scroll);
             this.TimelineScrollBar.ValueChanged += new System.EventHandler(this.TimelineScrollBar_ValueChanged);
             // 
+            // graphViewGLControl
+            // 
+            this.graphViewGLControl.BackColor = System.Drawing.Color.Black;
+            this.graphViewGLControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.graphViewGLControl.Location = new System.Drawing.Point(0, 0);
+            this.graphViewGLControl.Name = "graphViewGLControl";
+            this.graphViewGLControl.Size = new System.Drawing.Size(663, 299);
+            this.graphViewGLControl.TabIndex = 3;
+            this.graphViewGLControl.VSync = false;
+            this.graphViewGLControl.Paint += new System.Windows.Forms.PaintEventHandler(this.graphViewGLControl_Paint);
+            // 
             // PsgViewControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.graphViewGLControl);
             this.Controls.Add(this.TimelineScrollBar);
             this.Name = "PsgViewControl";
             this.Size = new System.Drawing.Size(663, 316);
@@ -54,5 +67,6 @@
 
         #endregion
         private System.Windows.Forms.HScrollBar TimelineScrollBar;
+        private OpenTK.GLControl graphViewGLControl;
     }
 }

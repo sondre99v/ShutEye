@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.button1 = new System.Windows.Forms.Button();
             this.psgViewControl1 = new ShutEye.PsgViewControl();
             this.SuspendLayout();
@@ -47,7 +48,7 @@
             this.psgViewControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.psgViewControl1.ChannelScale = 1D;
             this.psgViewControl1.ChannelSeparation = 100;
-            this.psgViewControl1.Location = new System.Drawing.Point(178, 25);
+            this.psgViewControl1.Location = new System.Drawing.Point(178, 23);
             this.psgViewControl1.Name = "psgViewControl1";
             this.psgViewControl1.Size = new System.Drawing.Size(575, 324);
             this.psgViewControl1.TabIndex = 0;
@@ -60,6 +61,7 @@
             this.ClientSize = new System.Drawing.Size(805, 409);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.psgViewControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "ShutEye";
             this.ResumeLayout(false);
