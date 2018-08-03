@@ -119,7 +119,7 @@
 			this.psgViewControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.psgViewControl1.ChannelScale = 1D;
 			this.psgViewControl1.ChannelSeparation = 100;
-			this.psgViewControl1.Cursor = System.Windows.Forms.Cursors.Cross;
+			this.psgViewControl1.Cursor = System.Windows.Forms.Cursors.Default;
 			this.psgViewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.psgViewControl1.Location = new System.Drawing.Point(0, 24);
 			this.psgViewControl1.Name = "psgViewControl1";

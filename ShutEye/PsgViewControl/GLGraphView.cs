@@ -135,7 +135,7 @@ namespace ShutEye
 		{
 			if(_isInDesignMode)
 			{
-				e.Graphics.Clear(Color.Red);
+				e.Graphics.Clear(Color.DimGray);
 				return;
 			}
 
