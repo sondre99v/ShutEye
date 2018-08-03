@@ -76,11 +76,12 @@
 			this.graphViewControl.BackColor = System.Drawing.Color.Black;
 			this.graphViewControl.ChannelHeight = 57;
 			this.graphViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.graphViewControl.Location = new System.Drawing.Point(3, 3);
+			this.graphViewControl.Location = new System.Drawing.Point(0, 0);
+			this.graphViewControl.Margin = new System.Windows.Forms.Padding(0);
 			this.graphViewControl.Name = "graphViewControl";
 			this.graphViewControl.OffsetY = 0;
 			this.graphViewControl.ScaleX = 100F;
-			this.graphViewControl.Size = new System.Drawing.Size(588, 293);
+			this.graphViewControl.Size = new System.Drawing.Size(594, 299);
 			this.graphViewControl.TabIndex = 3;
 			this.graphViewControl.TimeOffset = 0F;
 			this.graphViewControl.VSync = false;

@@ -18,7 +18,13 @@ namespace ShutEye
 			InitializeComponent();
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		private void loadSamplesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			psgViewControl1.LoadRandomData();
+			psgViewControl1.Invalidate();
+		}
+
+		private void loadFileToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			EDFFile EdfFile = new EDFFile();
 
@@ -27,12 +33,6 @@ namespace ShutEye
 			psgViewControl1.SetEdfFile(EdfFile);
 			psgViewControl1.Invalidate();
 			psgViewControl1.Update();
-		}
-
-		private void button2_Click(object sender, EventArgs e)
-		{
-			psgViewControl1.LoadRandomData();
-			psgViewControl1.Invalidate();
 		}
 	}
 }
