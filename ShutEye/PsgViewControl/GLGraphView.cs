@@ -160,7 +160,16 @@ namespace ShutEye
 				GL.Uniform1(_sampleRateUniformID, _dataChannels[i].SampleRate);
 				GL.Uniform1(_scaleYUniformID, ChannelHeight / 2 * _dataChannels[i].ViewAmplitude);
 				GL.BindVertexArray(_vertexArrayObjects[i]);
-				GL.DrawArrays(PrimitiveType.LineStrip, 0, _dataChannels[i].Data.Length);
+
+				int startIndex = (int)Math.Floor(TimeOffset * _dataChannels[i].SampleRate);
+				int samplesInView = (int)Math.Ceiling(Width * _dataChannels[i].SampleRate / ScaleX);
+
+				if (startIndex < 0)
+					startIndex = 0;
+				if (startIndex >= _dataChannels[i].Data.Length)
+					startIndex = _dataChannels[i].Data.Length - 1;
+
+				GL.DrawArrays(PrimitiveType.LineStrip, startIndex, Math.Min(samplesInView, _dataChannels[i].Data.Length - startIndex));
 			}
 
 			SwapBuffers();
