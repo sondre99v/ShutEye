@@ -75,7 +75,8 @@ namespace ShutEye
 				for(int j = 0; j < data[i].Data.Length; j++)
 				{
 					float s = (float)(rng.NextDouble() - 0.5) * 60.0F;
-					filter = data[i].Data[j] = filter * 0.99F + 0.1F * s;
+					filter = filter * 0.97F + 0.03F * s;
+					data[i].Data[j] = filter * 4.0F;
 				}
 			}
 
@@ -87,6 +88,12 @@ namespace ShutEye
 		private void TimelineScrollBar_Scroll(object sender, ScrollEventArgs e)
 		{
 			graphViewControl.TimeOffset = TimelineScrollBar.Value;
+			graphViewControl.Invalidate();
+		}
+
+		private void ChannelScrollBar_Scroll(object sender, ScrollEventArgs e)
+		{
+			graphViewControl.OffsetY = ChannelScrollBar.Value;
 			graphViewControl.Invalidate();
 		}
 

@@ -36,7 +36,8 @@
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(12, 12);
+			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button1.Location = new System.Drawing.Point(12, 530);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(89, 23);
 			this.button1.TabIndex = 1;
@@ -46,7 +47,8 @@
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(12, 41);
+			this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button2.Location = new System.Drawing.Point(107, 530);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(89, 23);
 			this.button2.TabIndex = 2;
@@ -56,12 +58,15 @@
 			// 
 			// psgViewControl1
 			// 
+			this.psgViewControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.psgViewControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.psgViewControl1.ChannelScale = 1D;
 			this.psgViewControl1.ChannelSeparation = 100;
-			this.psgViewControl1.Location = new System.Drawing.Point(107, 12);
+			this.psgViewControl1.Location = new System.Drawing.Point(12, 12);
 			this.psgViewControl1.Name = "psgViewControl1";
-			this.psgViewControl1.Size = new System.Drawing.Size(682, 370);
+			this.psgViewControl1.Size = new System.Drawing.Size(734, 512);
 			this.psgViewControl1.TabIndex = 0;
 			this.psgViewControl1.Zoom = 10D;
 			// 
@@ -69,7 +74,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(801, 633);
+			this.ClientSize = new System.Drawing.Size(758, 565);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.psgViewControl1);

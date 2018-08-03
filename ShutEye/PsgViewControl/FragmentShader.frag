@@ -1,7 +1,5 @@
 ﻿#version 150 core
 
-in float shade;
-
 out vec4 outColor;
 
 void main()
