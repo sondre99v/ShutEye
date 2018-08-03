@@ -7,11 +7,13 @@ using EDF;
 
 namespace ShutEye
 {
-	class Timeseries
+	public class Timeseries
 	{
 		public string Label { get; /*private*/ set; }
 
 		public float SampleRate { get; /*private*/ set; }
+
+		public float ViewAmplitude { get; /*private*/ set; }
 
 		public float[] Data;
 
@@ -25,6 +27,8 @@ namespace ShutEye
 			int numberOfSamples = signal.NumberOfSamplesPerDataRecord * file.Header.NumberOfDataRecords;
 
 			Data = new float[numberOfSamples];
+			
+			ViewAmplitude = 0.005F;
 
 			for(int i = 0; i < Data.Length; i++)
 			{

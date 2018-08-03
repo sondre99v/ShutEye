@@ -12,20 +12,46 @@ namespace ShutEye
 {
 	public partial class PsgViewChannelHeadersControl: UserControl
 	{
+		public event Action<int, float> ScaleButtonPressed;
+
+		private List<PsgChannelHeaderControl> ChannelHeaders = new List<PsgChannelHeaderControl>();
+
 		public PsgViewChannelHeadersControl()
 		{
 			InitializeComponent();
 		}
 
-		public void LoadHeaders(EDF.EDFHeader edfHeader)
+		public void LoadHeaders(Timeseries[] signals)
 		{
-			flowLayoutPanel1.Controls.Clear();
+			ChannelHeaders.Clear();
 
-			foreach(var signal in edfHeader.Signals)
+			for(int i = 0; i < signals.Length; i++)
 			{
-				string label = signal.Label.Trim();
-				flowLayoutPanel1.Controls.Add(new PsgChannelHeaderControl(label));
+				Timeseries signal = signals[i];
+				var header = new PsgChannelHeaderControl(i);
+				header.ChannelLabel = signal.Label;
+				header.ScaleButtonPressed += ChannelHeaders_ScaleButtonPressed;
+				header.BackColor = (i % 2 == 0) ? SystemColors.Control : SystemColors.ControlLight;
+
+				header.Location = new Point(0, header.Height * i);
+
+				ChannelHeaders.Add(header);
 			}
+
+			Controls.AddRange(ChannelHeaders.ToArray());
+		}
+
+		public void ScrollHeaders(int scrollPosition)
+		{
+			for(int i = 0; i < ChannelHeaders.Count; i++)
+			{
+				ChannelHeaders[i].Location = new Point(0, ChannelHeaders[i].Height * i - scrollPosition);
+			}
+		}
+
+		private void ChannelHeaders_ScaleButtonPressed(int channelIndex, float scaleFactor)
+		{
+			ScaleButtonPressed.Invoke(channelIndex, scaleFactor);
 		}
 	}
 }

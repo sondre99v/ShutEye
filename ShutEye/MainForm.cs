@@ -37,15 +37,16 @@ namespace ShutEye
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 		{
-			switch (keyData)
+			switch(keyData)
 			{
 				case Keys.Right:
 					psgViewControl1.SkipForward();
-					break;
+					return true;
 				case Keys.Left:
 					psgViewControl1.SkipBackward();
-					break;
+					return true;
 			}
+
 			return base.ProcessCmdKey(ref msg, keyData);
 		}
 	}

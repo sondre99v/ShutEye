@@ -38,8 +38,7 @@ namespace ShutEye
 		{
 			_isInDesignMode = (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime);
 		}
-
-
+		
 		public void LoadChannelData(Timeseries[] channels)
 		{
 			_dataChannels = channels;
@@ -159,7 +158,7 @@ namespace ShutEye
 			{
 				GL.Uniform1(_channelIndexUniformID, i);
 				GL.Uniform1(_sampleRateUniformID, _dataChannels[i].SampleRate);
-				GL.Uniform1(_scaleYUniformID, 0.9F);
+				GL.Uniform1(_scaleYUniformID, ChannelHeight / 2 * _dataChannels[i].ViewAmplitude);
 				GL.BindVertexArray(_vertexArrayObjects[i]);
 				GL.DrawArrays(PrimitiveType.LineStrip, 0, _dataChannels[i].Data.Length);
 			}

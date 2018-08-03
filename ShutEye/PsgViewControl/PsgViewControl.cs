@@ -29,15 +29,18 @@ namespace ShutEye
 			InitializeComponent();
 
 			DoubleBuffered = true;
+
+			ChannelHeadersPanel.ScaleButtonPressed += ChannelHeaders_ScaleButtonPressed;
 		}
 
 		public void SetEdfFile(EDFFile edfFile)
 		{
 			PsgData.LoadFromEdfFile(edfFile);
 			TimelineScrollBar.Minimum = 0;
-			TimelineScrollBar.Maximum = (int) PsgData.Duration + TimelineScrollBar.LargeChange - 1;
-			
-			ChannelHeadersPanel.LoadHeaders(edfFile.Header);
+			TimelineScrollBar.Maximum = (int) PsgData.Duration;// + TimelineScrollBar.LargeChange - 1;
+
+			ChannelHeadersPanel.LoadHeaders(PsgData.Channels);
+			ChannelScrollBar.Maximum = PsgData.Channels.Length * 57;
 			graphViewControl.LoadChannelData(PsgData.Channels);
 		}
 
@@ -51,13 +54,14 @@ namespace ShutEye
 				data[i] = new Timeseries();
 				data[i].Label = $"Example {i + 1}";
 				data[i].SampleRate = 200;
+				data[i].ViewAmplitude = 30.0F;
 				data[i].Data = new float[40000];
 
 				float filter = 0;
 
 				for(int j = 0; j < data[i].Data.Length; j++)
 				{
-					float s = (float)(rng.NextDouble() - 0.5) * 60.0F;
+					float s = (float)(rng.NextDouble() - 0.5) * 0.1F;
 					filter = filter * 0.97F + 0.03F * s;
 					data[i].Data[j] = filter * 4.0F;
 				}
@@ -66,18 +70,28 @@ namespace ShutEye
 
 			TimelineScrollBar.Maximum = (int)(data[0].Data.Length / data[0].SampleRate) + TimelineScrollBar.LargeChange - 1;
 
+			ChannelHeadersPanel.LoadHeaders(data);
+			PsgData.Channels = data;
+			ChannelScrollBar.Maximum = PsgData.Channels.Length * 57;
+
 			graphViewControl.LoadChannelData(data);
 		}
 		
 		public void SkipForward()
 		{
 			graphViewControl.TimeOffset += Width / graphViewControl.ScaleX;
+			if (graphViewControl.TimeOffset > TimelineScrollBar.Maximum) graphViewControl.TimeOffset = TimelineScrollBar.Maximum;
+
+			TimelineScrollBar.Value = (int)graphViewControl.TimeOffset;
 			Invalidate();
 		}
 
 		public void SkipBackward()
 		{
 			graphViewControl.TimeOffset -= Width / graphViewControl.ScaleX;
+			if (graphViewControl.TimeOffset < 0) graphViewControl.TimeOffset = 0;
+
+			TimelineScrollBar.Value = (int)graphViewControl.TimeOffset;
 			Invalidate();
 		}
 
@@ -89,7 +103,16 @@ namespace ShutEye
 
 		private void ChannelScrollBar_Scroll(object sender, ScrollEventArgs e)
 		{
+			ChannelHeadersPanel.ScrollHeaders(ChannelScrollBar.Value);
+			ChannelHeadersPanel.ScrollControlIntoView(ChannelHeadersPanel);
+
 			graphViewControl.OffsetY = ChannelScrollBar.Value;
+			graphViewControl.Invalidate();
+		}
+
+		private void ChannelHeaders_ScaleButtonPressed(int channelIndex, float scaleFactor)
+		{
+			PsgData.Channels[channelIndex].ViewAmplitude *= scaleFactor;
 			graphViewControl.Invalidate();
 		}
 
