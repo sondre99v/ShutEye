@@ -34,5 +34,19 @@ namespace ShutEye
 			psgViewControl1.Invalidate();
 			psgViewControl1.Update();
 		}
+
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+			switch (keyData)
+			{
+				case Keys.Right:
+					psgViewControl1.SkipForward();
+					break;
+				case Keys.Left:
+					psgViewControl1.SkipBackward();
+					break;
+			}
+			return base.ProcessCmdKey(ref msg, keyData);
+		}
 	}
 }

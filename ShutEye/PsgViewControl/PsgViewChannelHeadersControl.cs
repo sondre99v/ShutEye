@@ -16,5 +16,16 @@ namespace ShutEye
 		{
 			InitializeComponent();
 		}
+
+		public void LoadHeaders(EDF.EDFHeader edfHeader)
+		{
+			flowLayoutPanel1.Controls.Clear();
+
+			foreach(var signal in edfHeader.Signals)
+			{
+				string label = signal.Label.Trim();
+				flowLayoutPanel1.Controls.Add(new PsgChannelHeaderControl(label));
+			}
+		}
 	}
 }

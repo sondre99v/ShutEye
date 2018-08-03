@@ -29,24 +29,6 @@ namespace ShutEye
 			InitializeComponent();
 
 			DoubleBuffered = true;
-
-			MouseWheel += PsgViewControl_MouseWheel;
-		}
-
-		private void PsgViewControl_MouseWheel(object sender, MouseEventArgs e)
-		{
-			if(e.Delta < 0 && TimelineScrollBar.Value - TimelineScrollBar.SmallChange >= TimelineScrollBar.Minimum)
-			{
-				TimelineScrollBar.Value -= TimelineScrollBar.SmallChange;
-			}
-			else if(e.Delta > 0 && TimelineScrollBar.Value + TimelineScrollBar.SmallChange <= TimelineScrollBar.Maximum)
-			{
-				TimelineScrollBar.Value += TimelineScrollBar.SmallChange;
-			}
-
-
-			graphViewControl.TimeOffset = (float) TimelineScrollBar.Value / (TimelineScrollBar.Maximum - TimelineScrollBar.LargeChange - 1);
-			graphViewControl.Invalidate();
 		}
 
 		public void SetEdfFile(EDFFile edfFile)
@@ -54,7 +36,8 @@ namespace ShutEye
 			PsgData.LoadFromEdfFile(edfFile);
 			TimelineScrollBar.Minimum = 0;
 			TimelineScrollBar.Maximum = (int) PsgData.Duration + TimelineScrollBar.LargeChange - 1;
-
+			
+			ChannelHeadersPanel.LoadHeaders(edfFile.Header);
 			graphViewControl.LoadChannelData(PsgData.Channels);
 		}
 
@@ -79,10 +62,23 @@ namespace ShutEye
 					data[i].Data[j] = filter * 4.0F;
 				}
 			}
+			
 
 			TimelineScrollBar.Maximum = (int)(data[0].Data.Length / data[0].SampleRate) + TimelineScrollBar.LargeChange - 1;
 
 			graphViewControl.LoadChannelData(data);
+		}
+		
+		public void SkipForward()
+		{
+			graphViewControl.TimeOffset += Width / graphViewControl.ScaleX;
+			Invalidate();
+		}
+
+		public void SkipBackward()
+		{
+			graphViewControl.TimeOffset -= Width / graphViewControl.ScaleX;
+			Invalidate();
 		}
 
 		private void TimelineScrollBar_Scroll(object sender, ScrollEventArgs e)

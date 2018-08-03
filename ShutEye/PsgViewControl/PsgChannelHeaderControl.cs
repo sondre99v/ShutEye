@@ -12,9 +12,10 @@ namespace ShutEye
 {
 	public partial class PsgChannelHeaderControl: UserControl
 	{
-		public PsgChannelHeaderControl()
+		public PsgChannelHeaderControl(string channelName)
 		{
 			InitializeComponent();
+			labelChannelName.Text = channelName;
 		}
 	}
 }

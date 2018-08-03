@@ -29,7 +29,6 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-			this.psgViewControl1 = new ShutEye.PsgViewControl();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.loadSamplesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,21 +38,10 @@
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+			this.psgViewControl1 = new ShutEye.PsgViewControl();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// psgViewControl1
-			// 
-			this.psgViewControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.psgViewControl1.ChannelScale = 1D;
-			this.psgViewControl1.ChannelSeparation = 100;
-			this.psgViewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.psgViewControl1.Location = new System.Drawing.Point(0, 24);
-			this.psgViewControl1.Name = "psgViewControl1";
-			this.psgViewControl1.Size = new System.Drawing.Size(591, 519);
-			this.psgViewControl1.TabIndex = 0;
-			this.psgViewControl1.Zoom = 10D;
 			// 
 			// menuStrip1
 			// 
@@ -63,7 +51,7 @@
             this.viewToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(758, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(866, 24);
 			this.menuStrip1.TabIndex = 3;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -106,9 +94,9 @@
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 543);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 421);
 			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(758, 22);
+			this.statusStrip1.Size = new System.Drawing.Size(866, 22);
 			this.statusStrip1.TabIndex = 4;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
@@ -121,16 +109,29 @@
 			// propertyGrid1
 			// 
 			this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Right;
-			this.propertyGrid1.Location = new System.Drawing.Point(591, 24);
+			this.propertyGrid1.Location = new System.Drawing.Point(699, 24);
 			this.propertyGrid1.Name = "propertyGrid1";
-			this.propertyGrid1.Size = new System.Drawing.Size(167, 519);
+			this.propertyGrid1.Size = new System.Drawing.Size(167, 397);
 			this.propertyGrid1.TabIndex = 5;
+			// 
+			// psgViewControl1
+			// 
+			this.psgViewControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.psgViewControl1.ChannelScale = 1D;
+			this.psgViewControl1.ChannelSeparation = 100;
+			this.psgViewControl1.Cursor = System.Windows.Forms.Cursors.Cross;
+			this.psgViewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.psgViewControl1.Location = new System.Drawing.Point(0, 24);
+			this.psgViewControl1.Name = "psgViewControl1";
+			this.psgViewControl1.Size = new System.Drawing.Size(699, 397);
+			this.psgViewControl1.TabIndex = 0;
+			this.psgViewControl1.Zoom = 10D;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(758, 565);
+			this.ClientSize = new System.Drawing.Size(866, 443);
 			this.Controls.Add(this.psgViewControl1);
 			this.Controls.Add(this.propertyGrid1);
 			this.Controls.Add(this.menuStrip1);

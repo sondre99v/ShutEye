@@ -40,6 +40,35 @@ namespace ShutEye
 		}
 
 
+		public void LoadChannelData(Timeseries[] channels)
+		{
+			_dataChannels = channels;
+
+			// Delete old vertex/buffer data in case we are loading a new file
+			if(_vertexArrayObjects != null)
+				GL.DeleteVertexArrays(_vertexArrayObjects.Length, _vertexArrayObjects);
+			if(_vertexBufferObjects != null)
+				GL.DeleteBuffers(_vertexBufferObjects.Length, _vertexBufferObjects);
+
+			_vertexArrayObjects = new int[_dataChannels.Length];
+			GL.CreateVertexArrays(_vertexArrayObjects.Length, _vertexArrayObjects);
+
+			_vertexBufferObjects = new int[_dataChannels.Length];
+			GL.CreateBuffers(_vertexBufferObjects.Length, _vertexBufferObjects);
+
+			for(int i = 0; i < _dataChannels.Length; i++)
+			{
+				GL.BindVertexArray(_vertexArrayObjects[i]);
+
+				GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObjects[i]);
+				GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * _dataChannels[i].Data.Length, _dataChannels[i].Data, BufferUsageHint.StaticDraw);
+
+				int dataAttribute = GL.GetAttribLocation(_shaderProgramID, "sampleData");
+				GL.VertexAttribPointer(dataAttribute, 1, VertexAttribPointerType.Float, false, sizeof(float), 0);
+				GL.EnableVertexAttribArray(dataAttribute);
+			}
+		}
+		
 		protected override void OnLoad(EventArgs e)
 		{
 			if(_isInDesignMode)
@@ -96,35 +125,6 @@ namespace ShutEye
 			_channelHeightUniformID = GL.GetUniformLocation(_shaderProgramID, "ChannelHeight");
 			_viewSizeUniformID = GL.GetUniformLocation(_shaderProgramID, "ViewSize");
 			_channelIndexUniformID = GL.GetUniformLocation(_shaderProgramID, "ChannelIndex");
-		}
-
-		public void LoadChannelData(Timeseries[] channels)
-		{
-			_dataChannels = channels;
-
-			// Delete old vertex/buffer data in case we are loading a new file
-			if(_vertexArrayObjects != null)
-				GL.DeleteVertexArrays(_vertexArrayObjects.Length, _vertexArrayObjects);
-			if(_vertexBufferObjects != null)
-				GL.DeleteBuffers(_vertexBufferObjects.Length, _vertexBufferObjects);
-
-			_vertexArrayObjects = new int[_dataChannels.Length];
-			GL.CreateVertexArrays(_vertexArrayObjects.Length, _vertexArrayObjects);
-
-			_vertexBufferObjects = new int[_dataChannels.Length];
-			GL.CreateBuffers(_vertexBufferObjects.Length, _vertexBufferObjects);
-
-			for(int i = 0; i < _dataChannels.Length; i++)
-			{
-				GL.BindVertexArray(_vertexArrayObjects[i]);
-
-				GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObjects[i]);
-				GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * _dataChannels[i].Data.Length, _dataChannels[i].Data, BufferUsageHint.StaticDraw);
-
-				int dataAttribute = GL.GetAttribLocation(_shaderProgramID, "sampleData");
-				GL.VertexAttribPointer(dataAttribute, 1, VertexAttribPointerType.Float, false, sizeof(float), 0);
-				GL.EnableVertexAttribArray(dataAttribute);
-			}
 		}
 
 		protected override void OnResize(EventArgs e)

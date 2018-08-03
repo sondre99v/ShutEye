@@ -32,7 +32,7 @@
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.ChannelScrollBar = new System.Windows.Forms.VScrollBar();
 			this.graphViewControl = new ShutEye.GLGraphView();
-			this.psgViewChannelHeadersControl1 = new ShutEye.PsgViewChannelHeadersControl();
+			this.ChannelHeadersPanel = new ShutEye.PsgViewChannelHeadersControl();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -86,20 +86,20 @@
 			this.graphViewControl.TimeOffset = 0F;
 			this.graphViewControl.VSync = false;
 			// 
-			// psgViewChannelHeadersControl1
+			// ChannelHeadersPanel
 			// 
-			this.psgViewChannelHeadersControl1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.psgViewChannelHeadersControl1.Location = new System.Drawing.Point(0, 0);
-			this.psgViewChannelHeadersControl1.Name = "psgViewChannelHeadersControl1";
-			this.psgViewChannelHeadersControl1.Size = new System.Drawing.Size(52, 316);
-			this.psgViewChannelHeadersControl1.TabIndex = 4;
+			this.ChannelHeadersPanel.Dock = System.Windows.Forms.DockStyle.Left;
+			this.ChannelHeadersPanel.Location = new System.Drawing.Point(0, 0);
+			this.ChannelHeadersPanel.Name = "ChannelHeadersPanel";
+			this.ChannelHeadersPanel.Size = new System.Drawing.Size(52, 316);
+			this.ChannelHeadersPanel.TabIndex = 4;
 			// 
 			// PsgViewControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.tableLayoutPanel1);
-			this.Controls.Add(this.psgViewChannelHeadersControl1);
+			this.Controls.Add(this.ChannelHeadersPanel);
 			this.Name = "PsgViewControl";
 			this.Size = new System.Drawing.Size(663, 316);
 			this.tableLayoutPanel1.ResumeLayout(false);
@@ -110,7 +110,7 @@
 		#endregion
 		private System.Windows.Forms.HScrollBar TimelineScrollBar;
 		private GLGraphView graphViewControl;
-		private PsgViewChannelHeadersControl psgViewChannelHeadersControl1;
+		private PsgViewChannelHeadersControl ChannelHeadersPanel;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.VScrollBar ChannelScrollBar;
 	}
