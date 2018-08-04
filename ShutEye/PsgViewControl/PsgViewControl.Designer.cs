@@ -75,7 +75,7 @@
 			// 
 			this.graphViewControl.BackColor = System.Drawing.Color.Black;
 			this.graphViewControl.ChannelHeight = 57;
-			this.graphViewControl.Cursor = System.Windows.Forms.Cursors.Cross;
+			this.graphViewControl.Cursor = System.Windows.Forms.Cursors.IBeam;
 			this.graphViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.graphViewControl.Location = new System.Drawing.Point(0, 0);
 			this.graphViewControl.Margin = new System.Windows.Forms.Padding(0);
