@@ -36,6 +36,9 @@ namespace EDF
         
         public void readFile(string file_path)
         {
+			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+			stopwatch.Start();
+
             //open the file to read the header
             FileStream file = new FileStream(file_path, FileMode.Open, FileAccess.Read);
             StreamReader sr = new StreamReader(file);
@@ -43,6 +46,8 @@ namespace EDF
             file.Close();
             sr.Close();
 
+			stopwatch.Stop();
+			Console.WriteLine("Read file in " + stopwatch.Elapsed.TotalSeconds + " s");
         }
 
         public void readStream(StreamReader sr)
@@ -146,11 +151,16 @@ namespace EDF
                 int samplesWritten = 0;
                 foreach (EDFSignal signal in this.Header.Signals)
                 {
-                    List<float> samples = new List<float>();
+                    //List<float> samples = new List<float>();
+					float[] samples = new float[signal.NumberOfSamplesPerDataRecord];
+					int offset = (int)signal.Offset;
+					float gain = signal.AmplifierGain;
+
                     for (int l = 0; l < signal.NumberOfSamplesPerDataRecord; l++)
                     {
-                        float value = (float)(((BitConverter.ToInt16(dataRecordBytes, (samplesWritten * 2)) + (int)signal.Offset)) * signal.AmplifierGain);
-                        samples.Add(value);
+                        float value = (float)(((BitConverter.ToInt16(dataRecordBytes, (samplesWritten * 2)) + offset)) * gain);
+						//samples.Add(value);
+						samples[l] = value;
                         samplesWritten++;
                     }
                     dataRecord.Add(signal.IndexNumber, samples);
@@ -200,7 +210,7 @@ namespace EDF
             int index = 0;
             foreach (EDFDataRecord dr in this.DataRecords)
             {
-                    dr.Add(signal_to_add.IndexNumber, sampleValues.GetRange(index * signal_to_add.NumberOfSamplesPerDataRecord, signal_to_add.NumberOfSamplesPerDataRecord));
+                    dr.Add(signal_to_add.IndexNumber, sampleValues.GetRange(index * signal_to_add.NumberOfSamplesPerDataRecord, signal_to_add.NumberOfSamplesPerDataRecord).ToArray());
                   index++;
             }
             //After removing the DataRecords then Remove the Signal from the Header

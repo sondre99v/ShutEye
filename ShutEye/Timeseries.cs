@@ -33,7 +33,7 @@ namespace ShutEye
 			for(int i = 0; i < Data.Length; i++)
 			{
 				EDFDataRecord record = file.DataRecords[i / signal.NumberOfSamplesPerDataRecord];
-				List<float> recordData = record[signal.IndexNumber];
+				float[] recordData = record[signal.IndexNumber];
 
 				Data[i] = recordData[i % signal.NumberOfSamplesPerDataRecord];
 			}
