@@ -18,7 +18,18 @@ namespace ShutEye
 		public int OffsetY { get; set; } = 0;
 		public int ChannelHeight { get; set; } = 57;
 
-		private Timeseries[] _dataChannels;
+		private struct Channel
+		{
+			public Timeseries Timeseries;
+			public int VertexArrayObject;
+			public int VertexBufferObject;
+		}
+
+		private List<Channel> _dataChannels;
+
+		public List<Timeseries> ChannelsData { get => _dataChannels.Select(c => c.Timeseries).ToList(); }
+
+		private int _shaderProgramID;
 
 		private int _timeOffsetUniformID;
 		private int _scaleXUniformID;
@@ -29,45 +40,52 @@ namespace ShutEye
 		private int _viewSizeUniformID;
 		private int _channelIndexUniformID;
 
-		private int _shaderProgramID;
-		private int[] _vertexArrayObjects;
-		private int[] _vertexBufferObjects;
 		private bool _isInDesignMode;
 
 		public GLGraphView()
 		{
+			_dataChannels = new List<Channel>();
+
 			_isInDesignMode = (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime);
 		}
-		
-		public void LoadChannelData(Timeseries[] channels)
+
+		public void AddChannel(Timeseries channelData)
 		{
-			_dataChannels = channels;
+			Channel channel = new Channel();
+			channel.Timeseries = channelData;
 
-			// Delete old vertex/buffer data in case we are loading a new file
-			if(_vertexArrayObjects != null)
-				GL.DeleteVertexArrays(_vertexArrayObjects.Length, _vertexArrayObjects);
-			if(_vertexBufferObjects != null)
-				GL.DeleteBuffers(_vertexBufferObjects.Length, _vertexBufferObjects);
+			GL.CreateVertexArrays(1, out channel.VertexArrayObject);
+			GL.CreateBuffers(1, out channel.VertexBufferObject);
 
-			_vertexArrayObjects = new int[_dataChannels.Length];
-			GL.CreateVertexArrays(_vertexArrayObjects.Length, _vertexArrayObjects);
+			GL.BindVertexArray(channel.VertexArrayObject);
 
-			_vertexBufferObjects = new int[_dataChannels.Length];
-			GL.CreateBuffers(_vertexBufferObjects.Length, _vertexBufferObjects);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, channel.VertexBufferObject);
+			GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * channelData.Data.Length, channelData.Data, BufferUsageHint.StaticDraw);
 
-			for(int i = 0; i < _dataChannels.Length; i++)
+			int dataAttribute = GL.GetAttribLocation(_shaderProgramID, "sampleData");
+			GL.VertexAttribPointer(dataAttribute, 1, VertexAttribPointerType.Float, false, sizeof(float), 0);
+			GL.EnableVertexAttribArray(dataAttribute);
+
+
+			_dataChannels.Add(channel);
+		}
+
+		public void RemoveChannel(int index)
+		{
+			Channel channel = _dataChannels[index];
+			GL.DeleteVertexArray(channel.VertexArrayObject);
+			GL.DeleteBuffer(channel.VertexBufferObject);
+			_dataChannels.RemoveAt(index);
+		}
+
+		public void AddChannelRange(Timeseries[] channels)
+		{
+			foreach(var channel in channels)
 			{
-				GL.BindVertexArray(_vertexArrayObjects[i]);
-
-				GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObjects[i]);
-				GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * _dataChannels[i].Data.Length, _dataChannels[i].Data, BufferUsageHint.StaticDraw);
-
-				int dataAttribute = GL.GetAttribLocation(_shaderProgramID, "sampleData");
-				GL.VertexAttribPointer(dataAttribute, 1, VertexAttribPointerType.Float, false, sizeof(float), 0);
-				GL.EnableVertexAttribArray(dataAttribute);
+				AddChannel(channel);
 			}
 		}
-		
+
 		protected override void OnLoad(EventArgs e)
 		{
 			if(_isInDesignMode)
@@ -140,7 +158,7 @@ namespace ShutEye
 			}
 
 			MakeCurrent();
-
+			
 			GL.Viewport(0, 0, Width, Height);
 
 			GL.UseProgram(_shaderProgramID);
@@ -154,22 +172,23 @@ namespace ShutEye
 			GL.Uniform2(_viewSizeUniformID, Width, Height);
 			GL.Uniform1(_offsetYUniformID, OffsetY);
 
-			for(int i = 0; _dataChannels != null && i < _dataChannels.Length; i++)
+			for(int i = 0; _dataChannels != null && i < _dataChannels.Count; i++)
 			{
+				Timeseries ts = _dataChannels[i].Timeseries;
 				GL.Uniform1(_channelIndexUniformID, i);
-				GL.Uniform1(_sampleRateUniformID, _dataChannels[i].SampleRate);
-				GL.Uniform1(_scaleYUniformID, ChannelHeight / 2 * _dataChannels[i].ViewAmplitude);
-				GL.BindVertexArray(_vertexArrayObjects[i]);
+				GL.Uniform1(_sampleRateUniformID, ts.SampleRate);
+				GL.Uniform1(_scaleYUniformID, ChannelHeight / 2 * ts.ViewAmplitude);
+				GL.BindVertexArray(_dataChannels[i].VertexArrayObject);
 
-				int startIndex = (int)Math.Floor(TimeOffset * _dataChannels[i].SampleRate);
-				int samplesInView = (int)Math.Ceiling(Width * _dataChannels[i].SampleRate / ScaleX);
+				int startIndex = (int) Math.Floor(TimeOffset * ts.SampleRate);
+				int samplesInView = (int) Math.Ceiling(Width * ts.SampleRate / ScaleX);
 
-				if (startIndex < 0)
+				if(startIndex < 0)
 					startIndex = 0;
-				if (startIndex >= _dataChannels[i].Data.Length)
-					startIndex = _dataChannels[i].Data.Length - 1;
+				if(startIndex >= ts.Data.Length)
+					startIndex = ts.Data.Length - 1;
 
-				GL.DrawArrays(PrimitiveType.LineStrip, startIndex, Math.Min(samplesInView, _dataChannels[i].Data.Length - startIndex));
+				GL.DrawArrays(PrimitiveType.LineStrip, startIndex, Math.Min(samplesInView, ts.Data.Length - startIndex));
 			}
 
 			SwapBuffers();

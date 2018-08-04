@@ -12,8 +12,10 @@ namespace ShutEye
 {
 	public partial class PsgChannelHeaderControl: UserControl
 	{
-		public int ChannelIndex { get; private set; }
+		public int ChannelViewIndex { get; set; }
+
 		public event Action<int, float> ScaleButtonPressed;
+		public event Action<int> RemoveChannelButtonPressed;
 
 		public string ChannelLabel
 		{
@@ -21,20 +23,25 @@ namespace ShutEye
 			set => labelChannelName.Text = value;
 		}
 
-		public PsgChannelHeaderControl(int channelIndex)
+		public PsgChannelHeaderControl(int channelViewIndex)
 		{
-			ChannelIndex = channelIndex;
+			ChannelViewIndex = channelViewIndex;
 			InitializeComponent();
 		}
 
 		private void buttonIncreaseScale_Click(object sender, EventArgs e)
 		{
-			ScaleButtonPressed.Invoke(ChannelIndex, ModifierKeys == Keys.Shift ? 2.0F : 1.2F);
+			ScaleButtonPressed.Invoke(ChannelViewIndex, ModifierKeys == Keys.Shift ? 2.0F : 1.2F);
 		}
 
 		private void buttonDecreaseScale_Click(object sender, EventArgs e)
 		{
-			ScaleButtonPressed.Invoke(ChannelIndex, 1.0F / (ModifierKeys == Keys.Shift ? 2.0F : 1.2F));
+			ScaleButtonPressed.Invoke(ChannelViewIndex, 1.0F / (ModifierKeys == Keys.Shift ? 2.0F : 1.2F));
+		}
+
+		private void buttonRemoveChannel_Click(object sender, EventArgs e)
+		{
+			RemoveChannelButtonPressed.Invoke(ChannelViewIndex);
 		}
 	}
 }

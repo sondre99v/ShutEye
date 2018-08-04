@@ -31,6 +31,7 @@
 			this.labelChannelName = new System.Windows.Forms.Label();
 			this.buttonIncreaseScale = new System.Windows.Forms.Button();
 			this.buttonDecreaseScale = new System.Windows.Forms.Button();
+			this.buttonRemoveChannel = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// labelChannelName
@@ -67,10 +68,23 @@
 			this.buttonDecreaseScale.UseVisualStyleBackColor = true;
 			this.buttonDecreaseScale.Click += new System.EventHandler(this.buttonDecreaseScale_Click);
 			// 
+			// buttonRemoveChannel
+			// 
+			this.buttonRemoveChannel.Font = new System.Drawing.Font("Lucida Console", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.buttonRemoveChannel.Location = new System.Drawing.Point(1, 39);
+			this.buttonRemoveChannel.Margin = new System.Windows.Forms.Padding(1);
+			this.buttonRemoveChannel.Name = "buttonRemoveChannel";
+			this.buttonRemoveChannel.Size = new System.Drawing.Size(17, 17);
+			this.buttonRemoveChannel.TabIndex = 3;
+			this.buttonRemoveChannel.Text = "×";
+			this.buttonRemoveChannel.UseVisualStyleBackColor = true;
+			this.buttonRemoveChannel.Click += new System.EventHandler(this.buttonRemoveChannel_Click);
+			// 
 			// PsgChannelHeaderControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.buttonRemoveChannel);
 			this.Controls.Add(this.buttonDecreaseScale);
 			this.Controls.Add(this.buttonIncreaseScale);
 			this.Controls.Add(this.labelChannelName);
@@ -87,5 +101,6 @@
 		private System.Windows.Forms.Label labelChannelName;
 		private System.Windows.Forms.Button buttonIncreaseScale;
 		private System.Windows.Forms.Button buttonDecreaseScale;
+		private System.Windows.Forms.Button buttonRemoveChannel;
 	}
 }

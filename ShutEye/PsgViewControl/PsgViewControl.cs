@@ -31,6 +31,7 @@ namespace ShutEye
 			DoubleBuffered = true;
 
 			ChannelHeadersPanel.ScaleButtonPressed += ChannelHeaders_ScaleButtonPressed;
+			ChannelHeadersPanel.RemoveChannelButtonPressed += ChannelHeadersPanel_RemoveChannelButtonPressed;
 		}
 
 		public void SetEdfFile(EDFFile edfFile)
@@ -41,7 +42,7 @@ namespace ShutEye
 
 			ChannelHeadersPanel.LoadHeaders(PsgData.Channels);
 			ChannelScrollBar.Maximum = PsgData.Channels.Length * 57;
-			graphViewControl.LoadChannelData(PsgData.Channels);
+			graphViewControl.AddChannelRange(PsgData.Channels);
 		}
 
 		public void LoadRandomData()
@@ -52,7 +53,7 @@ namespace ShutEye
 			for(int i = 0; i < data.Length; i++)
 			{
 				data[i] = new Timeseries();
-				data[i].Label = $"Example {i + 1}";
+				data[i].Label = $"Ex {i + 1}";
 				data[i].SampleRate = 200;
 				data[i].ViewAmplitude = 30.0F;
 				data[i].Data = new float[40000];
@@ -74,12 +75,12 @@ namespace ShutEye
 			PsgData.Channels = data;
 			ChannelScrollBar.Maximum = PsgData.Channels.Length * 57;
 
-			graphViewControl.LoadChannelData(data);
+			graphViewControl.AddChannelRange(data);
 		}
 		
 		public void SkipForward()
 		{
-			graphViewControl.TimeOffset += Width / graphViewControl.ScaleX;
+			graphViewControl.TimeOffset += Width / graphViewControl.ScaleX * 0.8F;
 			if (graphViewControl.TimeOffset > TimelineScrollBar.Maximum) graphViewControl.TimeOffset = TimelineScrollBar.Maximum;
 
 			TimelineScrollBar.Value = (int)graphViewControl.TimeOffset;
@@ -88,7 +89,7 @@ namespace ShutEye
 
 		public void SkipBackward()
 		{
-			graphViewControl.TimeOffset -= Width / graphViewControl.ScaleX;
+			graphViewControl.TimeOffset -= Width / graphViewControl.ScaleX * 0.8F;
 			if (graphViewControl.TimeOffset < 0) graphViewControl.TimeOffset = 0;
 
 			TimelineScrollBar.Value = (int)graphViewControl.TimeOffset;
@@ -103,7 +104,7 @@ namespace ShutEye
 
 		private void ChannelScrollBar_Scroll(object sender, ScrollEventArgs e)
 		{
-			ChannelHeadersPanel.ScrollHeaders(ChannelScrollBar.Value);
+			ChannelHeadersPanel.ScrollPosition = ChannelScrollBar.Value;
 			ChannelHeadersPanel.ScrollControlIntoView(ChannelHeadersPanel);
 
 			graphViewControl.OffsetY = ChannelScrollBar.Value;
@@ -112,7 +113,14 @@ namespace ShutEye
 
 		private void ChannelHeaders_ScaleButtonPressed(int channelIndex, float scaleFactor)
 		{
-			PsgData.Channels[channelIndex].ViewAmplitude *= scaleFactor;
+			graphViewControl.ChannelsData[channelIndex].ViewAmplitude *= scaleFactor;
+			graphViewControl.Invalidate();
+		}
+
+		private void ChannelHeadersPanel_RemoveChannelButtonPressed(int channelIndex)
+		{
+			graphViewControl.RemoveChannel(channelIndex);
+			ChannelHeadersPanel.RemoveChannel(channelIndex);
 			graphViewControl.Invalidate();
 		}
 
