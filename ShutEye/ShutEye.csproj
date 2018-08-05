@@ -128,8 +128,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="PsgViewControl\FragmentShader.frag" />
-    <EmbeddedResource Include="PsgViewControl\VertexShader.vert" />
+    <EmbeddedResource Include="PsgViewControl\GraphFragmentShader.frag" />
+    <EmbeddedResource Include="PsgViewControl\GraphVertexShader.vert" />
+    <EmbeddedResource Include="PsgViewControl\OverlayFragmentShader.frag" />
+    <EmbeddedResource Include="PsgViewControl\OverlayVertexShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
