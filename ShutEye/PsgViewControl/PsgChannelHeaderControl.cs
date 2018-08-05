@@ -23,6 +23,12 @@ namespace ShutEye
 			set => labelChannelName.Text = value;
 		}
 
+		public string ReferenceLabel
+		{
+			get => labelReference.Text;
+			set => labelReference.Text = value ?? "mono";
+		}
+
 		public PsgChannelHeaderControl(int channelViewIndex)
 		{
 			ChannelViewIndex = channelViewIndex;

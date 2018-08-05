@@ -32,6 +32,7 @@
 			this.buttonIncreaseScale = new System.Windows.Forms.Button();
 			this.buttonDecreaseScale = new System.Windows.Forms.Button();
 			this.buttonRemoveChannel = new System.Windows.Forms.Button();
+			this.labelReference = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// labelChannelName
@@ -80,10 +81,21 @@
 			this.buttonRemoveChannel.UseVisualStyleBackColor = true;
 			this.buttonRemoveChannel.Click += new System.EventHandler(this.buttonRemoveChannel_Click);
 			// 
+			// labelReference
+			// 
+			this.labelReference.AutoSize = true;
+			this.labelReference.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.labelReference.Location = new System.Drawing.Point(4, 15);
+			this.labelReference.Name = "labelReference";
+			this.labelReference.Size = new System.Drawing.Size(17, 12);
+			this.labelReference.TabIndex = 4;
+			this.labelReference.Text = "A1";
+			// 
 			// PsgChannelHeaderControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.labelReference);
 			this.Controls.Add(this.buttonRemoveChannel);
 			this.Controls.Add(this.buttonDecreaseScale);
 			this.Controls.Add(this.buttonIncreaseScale);
@@ -102,5 +114,6 @@
 		private System.Windows.Forms.Button buttonIncreaseScale;
 		private System.Windows.Forms.Button buttonDecreaseScale;
 		private System.Windows.Forms.Button buttonRemoveChannel;
+		private System.Windows.Forms.Label labelReference;
 	}
 }

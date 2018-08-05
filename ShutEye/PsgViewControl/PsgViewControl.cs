@@ -34,11 +34,11 @@ namespace ShutEye
 			ChannelHeadersPanel.RemoveChannelButtonPressed += ChannelHeadersPanel_RemoveChannelButtonPressed;
 		}
 
-		public void SetEdfFile(EDFFile edfFile)
+		public void SetEdfFile(EDFFile file, ChannelConfiguration[] configurations)
 		{
-			PsgData.LoadFromEdfFile(edfFile);
+			PsgData.LoadFromChannelConfigurations(file, configurations);
 			TimelineScrollBar.Minimum = 0;
-			TimelineScrollBar.Maximum = (int) PsgData.Duration;// + TimelineScrollBar.LargeChange - 1;
+			TimelineScrollBar.Maximum = (int) PsgData.Duration;
 
 			ChannelHeadersPanel.LoadHeaders(PsgData.Channels);
 			ChannelScrollBar.Maximum = PsgData.Channels.Length * 57;

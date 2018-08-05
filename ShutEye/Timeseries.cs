@@ -10,6 +10,7 @@ namespace ShutEye
 	public class Timeseries
 	{
 		public string Label { get; /*private*/ set; }
+		public string ReferenceLabel { get; set; }
 
 		public float SampleRate { get; /*private*/ set; }
 
@@ -17,17 +18,17 @@ namespace ShutEye
 
 		public float[] Data;
 
-		public void LoadFromEdfFile(EDFFile file, int channelIndex)
+		public void LoadFromEdfFile(EDFFile file, EDFSignal signal, EDFSignal reference)
 		{
-			EDFSignal signal = file.Header.Signals[channelIndex];
-
 			Label = signal.Label;
+			ReferenceLabel = reference?.Label ?? "mono";
+
 			SampleRate = signal.NumberOfSamplesPerDataRecord / file.Header.DurationOfDataRecordInSeconds;
 
 			int numberOfSamples = signal.NumberOfSamplesPerDataRecord * file.Header.NumberOfDataRecords;
 
 			Data = new float[numberOfSamples];
-			
+
 			ViewAmplitude = 0.005F;
 
 			for(int i = 0; i < Data.Length; i++)
@@ -35,7 +36,16 @@ namespace ShutEye
 				EDFDataRecord record = file.DataRecords[i / signal.NumberOfSamplesPerDataRecord];
 				float[] recordData = record[signal.IndexNumber];
 
-				Data[i] = recordData[i % signal.NumberOfSamplesPerDataRecord];
+				if(reference == null)
+				{
+					Data[i] = recordData[i % signal.NumberOfSamplesPerDataRecord];
+				}
+				else
+				{
+					EDFDataRecord refRecord = file.DataRecords[i / signal.NumberOfSamplesPerDataRecord];
+					float[] refRecordData = refRecord[reference.IndexNumber];
+					Data[i] = recordData[i % reference.NumberOfSamplesPerDataRecord] - refRecordData[i % reference.NumberOfSamplesPerDataRecord];
+				}
 			}
 		}
 	}

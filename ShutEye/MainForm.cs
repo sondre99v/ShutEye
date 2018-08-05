@@ -30,9 +30,15 @@ namespace ShutEye
 
 			EdfFile.readFile("../../../ExampleData/36.rec");
 
-			psgViewControl1.SetEdfFile(EdfFile);
-			psgViewControl1.Invalidate();
-			psgViewControl1.Update();
+			var d = new ChannelSelectionForm(EdfFile.Header);
+			DialogResult result = d.ShowDialog();
+
+			if(result == DialogResult.OK)
+			{
+				psgViewControl1.SetEdfFile(EdfFile, d.ChannelConfigurations);
+				psgViewControl1.Invalidate();
+				psgViewControl1.Update();
+			}
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

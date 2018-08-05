@@ -42,6 +42,7 @@ namespace ShutEye
 				Timeseries signal = signals[i];
 				var header = new PsgChannelHeaderControl(i);
 				header.ChannelLabel = signal.Label;
+				header.ReferenceLabel = signal.ReferenceLabel;
 				header.ScaleButtonPressed += ChannelHeaders_ScaleButtonPressed;
 				header.RemoveChannelButtonPressed += ChannelHeaders_RemoveChannelButtonPressed;
 				header.BackColor = (i % 2 == 0) ? SystemColors.Control : SystemColors.ControlLight;

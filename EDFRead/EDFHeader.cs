@@ -309,7 +309,7 @@ namespace EDF
                 int charIndex = 0;
 
                 char[] label = getFixedLengthCharArrayFromHeader(signals, (i * 16) + (this.NumberOfSignalsInDataRecord * charIndex), 16);
-                edf_signal.Label = new string(label);
+                edf_signal.Label = new string(label).Trim();
                 charIndex += 16;
 
                 edf_signal.IndexNumber = (i + 1);
