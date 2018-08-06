@@ -62,7 +62,7 @@ namespace ShutEye
 			_dataChannels = new List<Channel>();
 			_selections = new List<Selection>();
 
-			_selections.Add(new Selection(1, 2));
+			/*_selections.Add(new Selection(1, 2));
 			_selections.Add(new Selection(3, 4));
 			_selections.Add(new Selection(6, 7));
 			_selections.Add(new Selection(9, 11));
@@ -73,7 +73,7 @@ namespace ShutEye
 			_selections[2].SelectedChannelIndex = -1;
 			_selections[2].Active = false;
 			_selections[3].SelectedChannelIndex = 0;
-			_selections[3].Active = false;
+			_selections[3].Active = false;*/
 
 			_editedSelection = null;
 
@@ -90,6 +90,17 @@ namespace ShutEye
 		public float ViewXToTime(float viewX)
 		{
 			return TimeOffset + viewX / ScaleX;
+		}
+
+		public void ClearSelections()
+		{
+			_selections.Clear();
+			_editedSelection = null;
+		}
+
+		public void AddSelection(float startTime, float endTime)
+		{
+			_selections.Add(new Selection(startTime, endTime));
 		}
 
 		public void AddChannel(Timeseries channelData)

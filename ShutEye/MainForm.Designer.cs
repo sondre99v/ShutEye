@@ -41,6 +41,7 @@
 			this.psgViewControl1 = new ShutEye.PsgViewControl();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPageDefault = new System.Windows.Forms.TabPage();
+			this.loadSelectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
@@ -63,7 +64,8 @@
 			// 
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadSamplesToolStripMenuItem,
-            this.loadFileToolStripMenuItem});
+            this.loadFileToolStripMenuItem,
+            this.loadSelectionsToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.fileToolStripMenuItem.Text = "File";
@@ -71,14 +73,14 @@
 			// loadSamplesToolStripMenuItem
 			// 
 			this.loadSamplesToolStripMenuItem.Name = "loadSamplesToolStripMenuItem";
-			this.loadSamplesToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+			this.loadSamplesToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
 			this.loadSamplesToolStripMenuItem.Text = "Load Samples";
 			this.loadSamplesToolStripMenuItem.Click += new System.EventHandler(this.loadSamplesToolStripMenuItem_Click);
 			// 
 			// loadFileToolStripMenuItem
 			// 
 			this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-			this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+			this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
 			this.loadFileToolStripMenuItem.Text = "Load File";
 			this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
 			// 
@@ -152,6 +154,13 @@
 			this.tabPageDefault.Text = "Default";
 			this.tabPageDefault.UseVisualStyleBackColor = true;
 			// 
+			// loadSelectionsToolStripMenuItem
+			// 
+			this.loadSelectionsToolStripMenuItem.Name = "loadSelectionsToolStripMenuItem";
+			this.loadSelectionsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.loadSelectionsToolStripMenuItem.Text = "Load Selections";
+			this.loadSelectionsToolStripMenuItem.Click += new System.EventHandler(this.loadSelectionsToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -190,6 +199,7 @@
 		private System.Windows.Forms.PropertyGrid propertyGrid1;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPageDefault;
+		private System.Windows.Forms.ToolStripMenuItem loadSelectionsToolStripMenuItem;
 	}
 }
 

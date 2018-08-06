@@ -53,6 +53,20 @@ namespace ShutEye
 			psgViewControl1.Update();
 		}
 
+		private void loadSelectionsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			DialogResult result;
+			OpenFileDialog ofd = new OpenFileDialog();
+
+			result = ofd.ShowDialog();
+			if(result != DialogResult.OK)
+			{
+				return;
+			}
+
+			psgViewControl1.OpenSelectionFile(ofd.FileName);
+		}
+
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 		{
 			switch(keyData)

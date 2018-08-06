@@ -47,6 +47,25 @@ namespace ShutEye
 			graphViewControl.AddChannelRange(PsgData.Channels);
 		}
 
+		public void OpenSelectionFile(string filename)
+		{
+			string[] lines = System.IO.File.ReadAllLines(filename);
+
+			graphViewControl.ClearSelections();
+
+			int sampleRate = int.Parse(lines[1]);
+
+			foreach (string line in lines.Skip(7))
+			{
+				string[] fields = line.Split(' ');
+				
+				int startSample = int.Parse(fields[0]);
+				int endSample = int.Parse(fields[1]);
+
+				graphViewControl.AddSelection((float)startSample / sampleRate, (float)endSample / sampleRate);
+			}
+		}
+
 		public void LoadRandomData()
 		{
 			Timeseries[] data = new Timeseries[7];
