@@ -38,10 +38,11 @@
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-			this.psgViewControl1 = new ShutEye.PsgViewControl();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPageDefault = new System.Windows.Forms.TabPage();
 			this.loadSelectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.psgViewControl1 = new ShutEye.PsgViewControl();
+			this.saveSelectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
@@ -65,7 +66,8 @@
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadSamplesToolStripMenuItem,
             this.loadFileToolStripMenuItem,
-            this.loadSelectionsToolStripMenuItem});
+            this.loadSelectionsToolStripMenuItem,
+            this.saveSelectionsToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.fileToolStripMenuItem.Text = "File";
@@ -120,19 +122,6 @@
 			this.propertyGrid1.Size = new System.Drawing.Size(167, 397);
 			this.propertyGrid1.TabIndex = 5;
 			// 
-			// psgViewControl1
-			// 
-			this.psgViewControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.psgViewControl1.ChannelScale = 1D;
-			this.psgViewControl1.ChannelSeparation = 100;
-			this.psgViewControl1.Cursor = System.Windows.Forms.Cursors.Default;
-			this.psgViewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.psgViewControl1.Location = new System.Drawing.Point(3, 3);
-			this.psgViewControl1.Name = "psgViewControl1";
-			this.psgViewControl1.Size = new System.Drawing.Size(685, 365);
-			this.psgViewControl1.TabIndex = 0;
-			this.psgViewControl1.Zoom = 10D;
-			// 
 			// tabControl1
 			// 
 			this.tabControl1.Controls.Add(this.tabPageDefault);
@@ -160,6 +149,26 @@
 			this.loadSelectionsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
 			this.loadSelectionsToolStripMenuItem.Text = "Load Selections";
 			this.loadSelectionsToolStripMenuItem.Click += new System.EventHandler(this.loadSelectionsToolStripMenuItem_Click);
+			// 
+			// psgViewControl1
+			// 
+			this.psgViewControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.psgViewControl1.ChannelScale = 1D;
+			this.psgViewControl1.ChannelSeparation = 100;
+			this.psgViewControl1.Cursor = System.Windows.Forms.Cursors.Default;
+			this.psgViewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.psgViewControl1.Location = new System.Drawing.Point(3, 3);
+			this.psgViewControl1.Name = "psgViewControl1";
+			this.psgViewControl1.Size = new System.Drawing.Size(685, 365);
+			this.psgViewControl1.TabIndex = 0;
+			this.psgViewControl1.Zoom = 10D;
+			// 
+			// saveSelectionsToolStripMenuItem
+			// 
+			this.saveSelectionsToolStripMenuItem.Name = "saveSelectionsToolStripMenuItem";
+			this.saveSelectionsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.saveSelectionsToolStripMenuItem.Text = "Save Selections";
+			this.saveSelectionsToolStripMenuItem.Click += new System.EventHandler(this.saveSelectionsToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -200,6 +209,7 @@
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPageDefault;
 		private System.Windows.Forms.ToolStripMenuItem loadSelectionsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem saveSelectionsToolStripMenuItem;
 	}
 }
 

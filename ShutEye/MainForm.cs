@@ -67,6 +67,20 @@ namespace ShutEye
 			psgViewControl1.OpenSelectionFile(ofd.FileName);
 		}
 
+		private void saveSelectionsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			DialogResult result;
+			SaveFileDialog sfd = new SaveFileDialog();
+
+			result = sfd.ShowDialog();
+			if (result != DialogResult.OK)
+			{
+				return;
+			}
+
+			psgViewControl1.SaveSelectionFile(sfd.FileName);
+		}
+
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 		{
 			switch(keyData)

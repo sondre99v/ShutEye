@@ -31,7 +31,7 @@ namespace ShutEye
 		private List<Channel> _dataChannels;
 
 		const int SelectionEdgeThreshold = 5;
-		private List<Selection> _selections;
+		public List<Selection> Selections { get; private set; }
 		private Selection _editedSelection;
 		private bool _editingEndEdge;
 
@@ -60,7 +60,7 @@ namespace ShutEye
 		public GLGraphView()
 		{
 			_dataChannels = new List<Channel>();
-			_selections = new List<Selection>();
+			Selections = new List<Selection>();
 
 			/*_selections.Add(new Selection(1, 2));
 			_selections.Add(new Selection(3, 4));
@@ -94,13 +94,13 @@ namespace ShutEye
 
 		public void ClearSelections()
 		{
-			_selections.Clear();
+			Selections.Clear();
 			_editedSelection = null;
 		}
 
 		public void AddSelection(float startTime, float endTime)
 		{
-			_selections.Add(new Selection(startTime, endTime));
+			Selections.Add(new Selection(startTime, endTime));
 		}
 
 		public void AddChannel(Timeseries channelData)
@@ -291,7 +291,7 @@ namespace ShutEye
 			{
 				Cursor = Cursors.IBeam;
 
-				foreach(Selection s in _selections)
+				foreach(Selection s in Selections)
 				{
 					int startX = (int) TimeToViewX(s.StartTime);
 					int endX = (int) TimeToViewX(s.EndTime);
@@ -313,7 +313,7 @@ namespace ShutEye
 
 		protected override void OnMouseDown(MouseEventArgs e)
 		{
-			foreach(Selection s in _selections)
+			foreach(Selection s in Selections)
 			{
 				if(Math.Abs(e.X - TimeToViewX(s.StartTime)) <= SelectionEdgeThreshold)
 				{
@@ -341,7 +341,7 @@ namespace ShutEye
 			}
 			else
 			{
-				foreach(Selection s in _selections)
+				foreach(Selection s in Selections)
 				{
 					int startX = (int) TimeToViewX(s.StartTime);
 					int endX = (int) TimeToViewX(s.EndTime);
@@ -352,7 +352,7 @@ namespace ShutEye
 						{
 							if((ModifierKeys & Keys.Control) == Keys.Control)
 							{
-								foreach(Selection s2 in _selections.Where(s2 => s2.Active))
+								foreach(Selection s2 in Selections.Where(s2 => s2.Active))
 								{
 									s2.SelectedChannelIndex = e.Y / ChannelHeight;
 								}
@@ -387,7 +387,7 @@ namespace ShutEye
 			switch(e.KeyCode)
 			{
 				case Keys.Delete:
-					_selections.RemoveAll(s => s.Active);
+					Selections.RemoveAll(s => s.Active);
 					Invalidate();
 					break;
 			}
@@ -442,13 +442,13 @@ namespace ShutEye
 
 			// Draw overlay
 			GL.UseProgram(_overlayShaderProgramID);
-			
+
 			Graphics g = Graphics.FromImage(_overlayBmp);
 			g.Clear(Color.Transparent);
 			g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
-			int firstSelectedIndex = _selections.FindIndex(s => s.Active);
-			int lastSelectedIndex = _selections.FindLastIndex(s => s.Active);
+			int firstSelectedIndex = Selections.FindIndex(s => s.Active);
+			int lastSelectedIndex = Selections.FindLastIndex(s => s.Active);
 
 			if(firstSelectedIndex != -1)
 			{
@@ -472,7 +472,7 @@ namespace ShutEye
 			Brush blue50 = new SolidBrush(Color.FromArgb(96, Color.Blue));
 			Brush red = new SolidBrush(Color.FromArgb(64, Color.Red));
 
-			foreach(Selection s in _selections)
+			foreach(Selection s in Selections)
 			{
 				if(s.EndTime > TimeOffset || s.StartTime < TimeOffset + ViewDuration)
 				{
@@ -496,7 +496,7 @@ namespace ShutEye
 
 			GL.BindTexture(TextureTarget.Texture2D, _overlayTextureID);
 			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, Width, Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
-			
+
 			_overlayBmp.UnlockBits(data);
 
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Nearest);
