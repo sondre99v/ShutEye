@@ -33,6 +33,7 @@
 			this.buttonDecreaseScale = new System.Windows.Forms.Button();
 			this.buttonRemoveChannel = new System.Windows.Forms.Button();
 			this.labelReference = new System.Windows.Forms.Label();
+			this.buttonColor = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// labelChannelName
@@ -72,7 +73,7 @@
 			// buttonRemoveChannel
 			// 
 			this.buttonRemoveChannel.Font = new System.Drawing.Font("Lucida Console", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonRemoveChannel.Location = new System.Drawing.Point(1, 39);
+			this.buttonRemoveChannel.Location = new System.Drawing.Point(1, 40);
 			this.buttonRemoveChannel.Margin = new System.Windows.Forms.Padding(1);
 			this.buttonRemoveChannel.Name = "buttonRemoveChannel";
 			this.buttonRemoveChannel.Size = new System.Drawing.Size(17, 17);
@@ -91,10 +92,23 @@
 			this.labelReference.TabIndex = 4;
 			this.labelReference.Text = "A1";
 			// 
+			// buttonColor
+			// 
+			this.buttonColor.BackColor = System.Drawing.Color.Red;
+			this.buttonColor.Font = new System.Drawing.Font("Lucida Console", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.buttonColor.Location = new System.Drawing.Point(18, 40);
+			this.buttonColor.Margin = new System.Windows.Forms.Padding(1);
+			this.buttonColor.Name = "buttonColor";
+			this.buttonColor.Size = new System.Drawing.Size(17, 17);
+			this.buttonColor.TabIndex = 5;
+			this.buttonColor.UseVisualStyleBackColor = false;
+			this.buttonColor.Click += new System.EventHandler(this.buttonColor_Click);
+			// 
 			// PsgChannelHeaderControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.buttonColor);
 			this.Controls.Add(this.labelReference);
 			this.Controls.Add(this.buttonRemoveChannel);
 			this.Controls.Add(this.buttonDecreaseScale);
@@ -115,5 +129,6 @@
 		private System.Windows.Forms.Button buttonDecreaseScale;
 		private System.Windows.Forms.Button buttonRemoveChannel;
 		private System.Windows.Forms.Label labelReference;
+		private System.Windows.Forms.Button buttonColor;
 	}
 }

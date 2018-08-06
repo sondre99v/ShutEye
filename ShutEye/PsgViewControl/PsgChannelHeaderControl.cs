@@ -49,5 +49,15 @@ namespace ShutEye
 		{
 			RemoveChannelButtonPressed.Invoke(ChannelViewIndex);
 		}
+
+		private void buttonColor_Click(object sender, EventArgs e)
+		{
+			ColorDialog cd = new ColorDialog();
+
+			if (cd.ShowDialog() == DialogResult.OK)
+			{
+				buttonColor.BackColor = cd.Color;
+			}
+		}
 	}
 }
