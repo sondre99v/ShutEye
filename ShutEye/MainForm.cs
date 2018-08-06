@@ -26,19 +26,31 @@ namespace ShutEye
 
 		private void loadFileToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+			DialogResult result;
+			OpenFileDialog ofd = new OpenFileDialog();
+
+			result = ofd.ShowDialog();
+			if(result != DialogResult.OK)
+			{
+				return;
+			}
+
+
 			EDFFile EdfFile = new EDFFile();
 
-			EdfFile.readFile("../../../ExampleData/36.rec");
+			EdfFile.readFile(ofd.FileName);
 
 			var d = new ChannelSelectionForm(EdfFile.Header);
-			DialogResult result = d.ShowDialog();
+			result = d.ShowDialog();
 
-			if(result == DialogResult.OK)
+			if(result != DialogResult.OK)
 			{
-				psgViewControl1.SetEdfFile(EdfFile, d.ChannelConfigurations);
-				psgViewControl1.Invalidate();
-				psgViewControl1.Update();
+				return;
 			}
+
+			psgViewControl1.SetEdfFile(EdfFile, d.ChannelConfigurations);
+			psgViewControl1.Invalidate();
+			psgViewControl1.Update();
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

@@ -256,8 +256,6 @@ namespace ShutEye
 
 		protected override void OnMouseMove(MouseEventArgs e)
 		{
-			Console.WriteLine(e.X);
-
 			if(_editedSelection != null)
 			{
 				Cursor = Cursors.SizeWE;
