@@ -86,6 +86,7 @@
     <Compile Include="PsgViewControl\PsgViewChannelHeadersControl.Designer.cs">
       <DependentUpon>PsgViewChannelHeadersControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Selection.cs" />
     <Compile Include="Timeseries.cs" />
     <Compile Include="PsgViewControl\PsgViewControl.cs">
       <SubType>UserControl</SubType>

@@ -73,10 +73,11 @@
 			// 
 			// graphViewControl
 			// 
-			this.graphViewControl.BackColor = System.Drawing.Color.Black;
+			this.graphViewControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
 			this.graphViewControl.ChannelHeight = 57;
 			this.graphViewControl.Cursor = System.Windows.Forms.Cursors.IBeam;
 			this.graphViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.graphViewControl.ForeColor = System.Drawing.Color.White;
 			this.graphViewControl.Location = new System.Drawing.Point(0, 0);
 			this.graphViewControl.Margin = new System.Windows.Forms.Padding(0);
 			this.graphViewControl.Name = "graphViewControl";
@@ -92,6 +93,7 @@
 			this.ChannelHeadersPanel.Dock = System.Windows.Forms.DockStyle.Left;
 			this.ChannelHeadersPanel.Location = new System.Drawing.Point(0, 0);
 			this.ChannelHeadersPanel.Name = "ChannelHeadersPanel";
+			this.ChannelHeadersPanel.ScrollPosition = 0;
 			this.ChannelHeadersPanel.Size = new System.Drawing.Size(52, 316);
 			this.ChannelHeadersPanel.TabIndex = 4;
 			// 

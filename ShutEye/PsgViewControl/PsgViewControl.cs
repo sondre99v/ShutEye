@@ -39,6 +39,8 @@ namespace ShutEye
 			PsgData.LoadFromChannelConfigurations(file, configurations);
 			TimelineScrollBar.Minimum = 0;
 			TimelineScrollBar.Maximum = (int) PsgData.Duration;
+			TimelineScrollBar.LargeChange = (int)graphViewControl.ViewDuration;
+			TimelineScrollBar.SmallChange = 1;
 
 			ChannelHeadersPanel.LoadHeaders(PsgData.Channels);
 			ChannelScrollBar.Maximum = PsgData.Channels.Length * 57;
