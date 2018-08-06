@@ -53,6 +53,8 @@ namespace ShutEye
 		private int _overlayVertexBufferObject;
 		private int _overlayTextureID;
 
+		private Bitmap _overlayBmp;
+
 		private bool _isInDesignMode;
 
 		public GLGraphView()
@@ -76,6 +78,8 @@ namespace ShutEye
 			_editedSelection = null;
 
 			_isInDesignMode = (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime);
+
+			_overlayBmp = new Bitmap(Width, Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 		}
 
 		public float TimeToViewX(float time)
@@ -250,6 +254,7 @@ namespace ShutEye
 
 		protected override void OnResize(EventArgs e)
 		{
+			_overlayBmp = new Bitmap(Width, Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 			base.OnResize(e);
 		}
 
@@ -414,9 +419,8 @@ namespace ShutEye
 
 			// Draw overlay
 			GL.UseProgram(_overlayShaderProgramID);
-
-			Bitmap overlayBmp = new Bitmap(Width, Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-			Graphics g = Graphics.FromImage(overlayBmp);
+			
+			Graphics g = Graphics.FromImage(_overlayBmp);
 			g.Clear(Color.Transparent);
 			g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
@@ -465,16 +469,16 @@ namespace ShutEye
 			}
 
 
-			BitmapData data = overlayBmp.LockBits(new Rectangle(0, 0, overlayBmp.Width, overlayBmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+			BitmapData data = _overlayBmp.LockBits(new Rectangle(0, 0, _overlayBmp.Width, _overlayBmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
 			GL.BindTexture(TextureTarget.Texture2D, _overlayTextureID);
 			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, Width, Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
-
+			
+			_overlayBmp.UnlockBits(data);
 
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Nearest);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMagFilter.Nearest);
 
-			overlayBmp.UnlockBits(data);
 
 			System.Diagnostics.Debug.Assert(GL.GetError() == ErrorCode.NoError);
 
