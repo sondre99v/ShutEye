@@ -382,6 +382,18 @@ namespace ShutEye
 			base.OnMouseUp(e);
 		}
 
+		protected override void OnKeyDown(KeyEventArgs e)
+		{
+			switch(e.KeyCode)
+			{
+				case Keys.Delete:
+					_selections.RemoveAll(s => s.Active);
+					Invalidate();
+					break;
+			}
+			base.OnKeyDown(e);
+		}
+
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
