@@ -275,6 +275,10 @@ namespace ShutEye
 			if(_editedSelection != null)
 			{
 				Cursor = Cursors.SizeWE;
+				float mouseTime = ViewXToTime(e.X);
+
+				if(mouseTime < _editedSelection.StartTime) _editingEndEdge = false;
+				if(mouseTime > _editedSelection.EndTime) _editingEndEdge = true;
 
 				if(_editingEndEdge)
 				{
@@ -329,6 +333,26 @@ namespace ShutEye
 				}
 			}
 
+			bool hovering = false;
+			foreach(Selection s in Selections)
+			{
+				int startX = (int) TimeToViewX(s.StartTime);
+				int endX = (int) TimeToViewX(s.EndTime);
+
+				if(startX < e.X && e.X < endX)
+				{
+					hovering = true;
+					break;
+				}
+			}
+
+			if(!hovering && _editedSelection == null)
+			{
+				_editedSelection = new Selection(ViewXToTime(e.X), ViewXToTime(e.X));
+				Selections.Add(_editedSelection);
+				Invalidate();
+			}
+
 			base.OnMouseDown(e);
 		}
 
@@ -336,6 +360,11 @@ namespace ShutEye
 		{
 			if(_editedSelection != null)
 			{
+				if((_editedSelection.Length * ScaleX) < SelectionEdgeThreshold)
+				{
+					Selections.Remove(_editedSelection);
+				}
+
 				_editedSelection = null;
 				Invalidate();
 			}
