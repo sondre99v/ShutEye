@@ -15,6 +15,9 @@ namespace ShutEye
 	class GLGraphView: GLControl
 	{
 		public float TimeOffset { get; set; } = 0.0F;
+		/// <summary>
+		/// Scale x in pixels pr. second
+		/// </summary>
 		public float ScaleX { get; set; } = 100.0F;
 		public int OffsetY { get; set; } = 0;
 		public int ChannelHeight { get; set; } = 57;
@@ -101,6 +104,7 @@ namespace ShutEye
 		public void AddSelection(float startTime, float endTime)
 		{
 			Selections.Add(new Selection(startTime, endTime));
+			Selections.OrderBy(s => s.StartTime);
 		}
 
 		public void AddChannel(Timeseries channelData)
@@ -137,6 +141,33 @@ namespace ShutEye
 			foreach(var channel in channels)
 			{
 				AddChannel(channel);
+			}
+		}
+
+		public void JumpToNextSelection()
+		{
+			int currentIndex = Selections.FindIndex(s => s.Active);
+
+			if(currentIndex != -1 && currentIndex + 1 < Selections.Count)
+			{
+				Selections[currentIndex].Active = false;
+				Selections[currentIndex + 1].Active = true;
+				Selection selection = Selections[currentIndex + 1];
+				TimeOffset = selection.StartTime + selection.Length / 2 - Width / ScaleX / 2;
+			}
+		}
+
+		public void JumpToPreviousSelection()
+		{
+			int currentIndex = Selections.FindIndex(s => s.Active);
+
+			if(currentIndex != -1 && currentIndex > 0)
+			{
+				Selections[currentIndex].Active = false;
+				Selections[currentIndex - 1].Active = true;
+
+				Selection selection = Selections[currentIndex - 1];
+				TimeOffset = selection.StartTime + selection.Length / 2 - Width / ScaleX / 2;
 			}
 		}
 
@@ -269,7 +300,6 @@ namespace ShutEye
 			base.OnResize(e);
 		}
 
-
 		protected override void OnMouseMove(MouseEventArgs e)
 		{
 			if(_editedSelection != null)
@@ -364,6 +394,10 @@ namespace ShutEye
 				{
 					Selections.Remove(_editedSelection);
 				}
+				else
+				{
+					Selections.OrderBy(s => s.StartTime);
+				}
 
 				_editedSelection = null;
 				Invalidate();
@@ -417,6 +451,14 @@ namespace ShutEye
 			{
 				case Keys.Delete:
 					Selections.RemoveAll(s => s.Active);
+					Invalidate();
+					break;
+				case Keys.D:
+					JumpToNextSelection();
+					Invalidate();
+					break;
+				case Keys.A:
+					JumpToPreviousSelection();
 					Invalidate();
 					break;
 			}
