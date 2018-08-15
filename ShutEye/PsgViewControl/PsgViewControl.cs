@@ -21,6 +21,7 @@ namespace ShutEye
 		public double Zoom { get; set; } = 10;
 
 		private Polysomnogram PsgData;
+		private EDFFile file;
 
 		public PsgViewControl()
 		{
@@ -36,6 +37,8 @@ namespace ShutEye
 
 		public void SetEdfFile(EDFFile file, ChannelConfiguration[] configurations)
 		{
+			this.file = file;
+
 			PsgData.LoadFromChannelConfigurations(file, configurations);
 			TimelineScrollBar.Minimum = 0;
 			TimelineScrollBar.Maximum = (int) PsgData.Duration;
@@ -70,23 +73,29 @@ namespace ShutEye
 
 		public void SaveSelectionFile(string filename)
 		{
-			int sampleRate = (int)PsgData.Channels[0].SampleRate;
+			ResultsFile rs = new ResultsFile();
 
-			List<string> lines = new List<string>();
-			lines.Add("Sample Rate for EEG:");
-			lines.Add(sampleRate.ToString());
-			lines.Add("Starttidspunkt for EEG (klokkeslett):");
-			lines.Add("00.00.00");
-			lines.Add("Liste over alle registrerte søvnspindler, med start og sluttidspunkt (enhet: Hz (men egentlig ikke)).");
-			lines.Add("");
-			lines.Add("Start Slutt");
+			rs.LoadFromSelections(file, graphViewControl.ChannelsData.ToArray(), graphViewControl.Selections.ToArray());
+
+			rs.SaveToFile(filename);
+
+			//int sampleRate = (int)PsgData.Channels[0].SampleRate;
+
+			//List<string> lines = new List<string>();
+			//lines.Add("Sample Rate for EEG:");
+			//lines.Add(sampleRate.ToString());
+			//lines.Add("Starttidspunkt for EEG (klokkeslett):");
+			//lines.Add("00.00.00");
+			//lines.Add("Liste over alle registrerte søvnspindler, med start og sluttidspunkt (enhet: Hz (men egentlig ikke)).");
+			//lines.Add("");
+			//lines.Add("Start Slutt");
 			
-			foreach (Selection selection in graphViewControl.Selections)
-			{
-				lines.Add($"{(int)(selection.StartTime * sampleRate)} {(int)(selection.EndTime * sampleRate)}");
-			}
+			//foreach (Selection selection in graphViewControl.Selections)
+			//{
+			//	lines.Add($"{(int)(selection.StartTime * sampleRate)} {(int)(selection.EndTime * sampleRate)}");
+			//}
 
-			System.IO.File.WriteAllLines(filename, lines.ToArray());
+			//System.IO.File.WriteAllLines(filename, lines.ToArray());
 			
 			Console.WriteLine($"Saved {graphViewControl.Selections.Count} selections.");
 		}
