@@ -35,8 +35,6 @@ namespace ShutEye
 
 		public void LoadHeaders(Timeseries[] signals)
 		{
-			ChannelHeaders.Clear();
-
 			for(int i = 0; i < signals.Length; i++)
 			{
 				Timeseries signal = signals[i];

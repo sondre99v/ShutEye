@@ -53,6 +53,25 @@ namespace ShutEye
 			psgViewControl1.Update();
 		}
 
+		private void loadHypnogramToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			DialogResult result;
+			OpenFileDialog ofd = new OpenFileDialog();
+
+			result = ofd.ShowDialog();
+			if(result != DialogResult.OK)
+			{
+				return;
+			}
+
+			var hypnogram = new Hypnogram();
+			hypnogram.LoadFromFile(ofd.FileName);
+
+			psgViewControl1.SetHypnogram(hypnogram);
+			psgViewControl1.Invalidate();
+			psgViewControl1.Update();
+		}
+
 		private void loadSelectionsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			DialogResult result;

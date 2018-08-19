@@ -33,6 +33,8 @@
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.loadSamplesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.loadFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.loadSelectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveSelectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -40,9 +42,8 @@
 			this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPageDefault = new System.Windows.Forms.TabPage();
-			this.loadSelectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.psgViewControl1 = new ShutEye.PsgViewControl();
-			this.saveSelectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.loadHypnogramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
@@ -66,6 +67,7 @@
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadSamplesToolStripMenuItem,
             this.loadFileToolStripMenuItem,
+            this.loadHypnogramToolStripMenuItem,
             this.loadSelectionsToolStripMenuItem,
             this.saveSelectionsToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -75,16 +77,30 @@
 			// loadSamplesToolStripMenuItem
 			// 
 			this.loadSamplesToolStripMenuItem.Name = "loadSamplesToolStripMenuItem";
-			this.loadSamplesToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.loadSamplesToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
 			this.loadSamplesToolStripMenuItem.Text = "Load Samples";
 			this.loadSamplesToolStripMenuItem.Click += new System.EventHandler(this.loadSamplesToolStripMenuItem_Click);
 			// 
 			// loadFileToolStripMenuItem
 			// 
 			this.loadFileToolStripMenuItem.Name = "loadFileToolStripMenuItem";
-			this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.loadFileToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
 			this.loadFileToolStripMenuItem.Text = "Load File";
 			this.loadFileToolStripMenuItem.Click += new System.EventHandler(this.loadFileToolStripMenuItem_Click);
+			// 
+			// loadSelectionsToolStripMenuItem
+			// 
+			this.loadSelectionsToolStripMenuItem.Name = "loadSelectionsToolStripMenuItem";
+			this.loadSelectionsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+			this.loadSelectionsToolStripMenuItem.Text = "Load Selections";
+			this.loadSelectionsToolStripMenuItem.Click += new System.EventHandler(this.loadSelectionsToolStripMenuItem_Click);
+			// 
+			// saveSelectionsToolStripMenuItem
+			// 
+			this.saveSelectionsToolStripMenuItem.Name = "saveSelectionsToolStripMenuItem";
+			this.saveSelectionsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+			this.saveSelectionsToolStripMenuItem.Text = "Save Selections";
+			this.saveSelectionsToolStripMenuItem.Click += new System.EventHandler(this.saveSelectionsToolStripMenuItem_Click);
 			// 
 			// editToolStripMenuItem
 			// 
@@ -143,13 +159,6 @@
 			this.tabPageDefault.Text = "Default";
 			this.tabPageDefault.UseVisualStyleBackColor = true;
 			// 
-			// loadSelectionsToolStripMenuItem
-			// 
-			this.loadSelectionsToolStripMenuItem.Name = "loadSelectionsToolStripMenuItem";
-			this.loadSelectionsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
-			this.loadSelectionsToolStripMenuItem.Text = "Load Selections";
-			this.loadSelectionsToolStripMenuItem.Click += new System.EventHandler(this.loadSelectionsToolStripMenuItem_Click);
-			// 
 			// psgViewControl1
 			// 
 			this.psgViewControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -163,12 +172,12 @@
 			this.psgViewControl1.TabIndex = 0;
 			this.psgViewControl1.Zoom = 10D;
 			// 
-			// saveSelectionsToolStripMenuItem
+			// loadHypnogramToolStripMenuItem
 			// 
-			this.saveSelectionsToolStripMenuItem.Name = "saveSelectionsToolStripMenuItem";
-			this.saveSelectionsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
-			this.saveSelectionsToolStripMenuItem.Text = "Save Selections";
-			this.saveSelectionsToolStripMenuItem.Click += new System.EventHandler(this.saveSelectionsToolStripMenuItem_Click);
+			this.loadHypnogramToolStripMenuItem.Name = "loadHypnogramToolStripMenuItem";
+			this.loadHypnogramToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+			this.loadHypnogramToolStripMenuItem.Text = "Load Hypnogram";
+			this.loadHypnogramToolStripMenuItem.Click += new System.EventHandler(this.loadHypnogramToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -210,6 +219,7 @@
 		private System.Windows.Forms.TabPage tabPageDefault;
 		private System.Windows.Forms.ToolStripMenuItem loadSelectionsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem saveSelectionsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem loadHypnogramToolStripMenuItem;
 	}
 }
 

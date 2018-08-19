@@ -73,8 +73,8 @@ namespace ShutEye
 			AverageSpindleFrequency = 0.0F;
 			MedianSpindleFrequency = 0.0F;
 			MostSignificantChannel = "X";
-			SpindleDensity = selections.Length / edfFile.Header.DurationOfDataRecordInSeconds;
-			SpindleRatio = selections.Sum(s => s.Length) / edfFile.Header.DurationOfDataRecordInSeconds;
+			SpindleDensity = selections.Length / (edfFile.Header.DurationOfDataRecordInSeconds * edfFile.Header.NumberOfDataRecords);
+			SpindleRatio = selections.Sum(s => s.Length) / (edfFile.Header.DurationOfDataRecordInSeconds * edfFile.Header.NumberOfDataRecords);
 
 			foreach(Selection s in selections)
 			{

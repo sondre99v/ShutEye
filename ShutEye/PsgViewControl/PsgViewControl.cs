@@ -35,6 +35,11 @@ namespace ShutEye
 			ChannelHeadersPanel.RemoveChannelButtonPressed += ChannelHeadersPanel_RemoveChannelButtonPressed;
 		}
 
+		public void SetHypnogram(Hypnogram hypnogram)
+		{
+			hypnogramControl1.SetHypnogram(hypnogram);
+		}
+
 		public void SetEdfFile(EDFFile file, ChannelConfiguration[] configurations)
 		{
 			this.file = file;
@@ -42,7 +47,7 @@ namespace ShutEye
 			PsgData.LoadFromChannelConfigurations(file, configurations);
 			TimelineScrollBar.Minimum = 0;
 			TimelineScrollBar.Maximum = (int) PsgData.Duration;
-			TimelineScrollBar.LargeChange = (int)graphViewControl.ViewDuration;
+			TimelineScrollBar.LargeChange = (int) graphViewControl.ViewDuration;
 			TimelineScrollBar.SmallChange = 1;
 
 			ChannelHeadersPanel.LoadHeaders(PsgData.Channels);
@@ -58,14 +63,14 @@ namespace ShutEye
 
 			int sampleRate = int.Parse(lines[1]);
 
-			foreach (string line in lines.Skip(7))
+			foreach(string line in lines.Skip(7))
 			{
 				string[] fields = line.Split(' ');
-				
+
 				int startSample = int.Parse(fields[0]);
 				int endSample = int.Parse(fields[1]);
 
-				graphViewControl.AddSelection((float)startSample / sampleRate, (float)endSample / sampleRate);
+				graphViewControl.AddSelection((float) startSample / sampleRate, (float) endSample / sampleRate);
 			}
 
 			Console.WriteLine($"Loaded {graphViewControl.Selections.Count} selections.");
@@ -89,14 +94,14 @@ namespace ShutEye
 			//lines.Add("Liste over alle registrerte søvnspindler, med start og sluttidspunkt (enhet: Hz (men egentlig ikke)).");
 			//lines.Add("");
 			//lines.Add("Start Slutt");
-			
+
 			//foreach (Selection selection in graphViewControl.Selections)
 			//{
 			//	lines.Add($"{(int)(selection.StartTime * sampleRate)} {(int)(selection.EndTime * sampleRate)}");
 			//}
 
 			//System.IO.File.WriteAllLines(filename, lines.ToArray());
-			
+
 			Console.WriteLine($"Saved {graphViewControl.Selections.Count} selections.");
 		}
 
@@ -117,14 +122,14 @@ namespace ShutEye
 
 				for(int j = 0; j < data[i].Data.Length; j++)
 				{
-					float s = (float)(rng.NextDouble() - 0.5) * 0.1F;
+					float s = (float) (rng.NextDouble() - 0.5) * 0.1F;
 					filter = filter * 0.97F + 0.03F * s;
 					data[i].Data[j] = filter * 4.0F;
 				}
 			}
-			
 
-			TimelineScrollBar.Maximum = (int)(data[0].Data.Length / data[0].SampleRate) + TimelineScrollBar.LargeChange - 1;
+
+			TimelineScrollBar.Maximum = (int) (data[0].Data.Length / data[0].SampleRate) + TimelineScrollBar.LargeChange - 1;
 
 			ChannelHeadersPanel.LoadHeaders(data);
 			PsgData.Channels = data;
@@ -132,28 +137,31 @@ namespace ShutEye
 
 			graphViewControl.AddChannelRange(data);
 		}
-		
+
 		public void SkipForward()
 		{
 			graphViewControl.TimeOffset += Width / graphViewControl.ScaleX * 0.8F;
-			if (graphViewControl.TimeOffset > TimelineScrollBar.Maximum) graphViewControl.TimeOffset = TimelineScrollBar.Maximum;
+			if(graphViewControl.TimeOffset > TimelineScrollBar.Maximum) graphViewControl.TimeOffset = TimelineScrollBar.Maximum;
 
-			TimelineScrollBar.Value = (int)graphViewControl.TimeOffset;
+			TimelineScrollBar.Value = (int) graphViewControl.TimeOffset;
+			hypnogramControl1.SetMarkerPosition(TimelineScrollBar.Value);
 			Invalidate();
 		}
 
 		public void SkipBackward()
 		{
 			graphViewControl.TimeOffset -= Width / graphViewControl.ScaleX * 0.8F;
-			if (graphViewControl.TimeOffset < 0) graphViewControl.TimeOffset = 0;
+			if(graphViewControl.TimeOffset < 0) graphViewControl.TimeOffset = 0;
 
-			TimelineScrollBar.Value = (int)graphViewControl.TimeOffset;
+			TimelineScrollBar.Value = (int) graphViewControl.TimeOffset;
+			hypnogramControl1.SetMarkerPosition(TimelineScrollBar.Value);
 			Invalidate();
 		}
 
 		private void TimelineScrollBar_Scroll(object sender, ScrollEventArgs e)
 		{
 			graphViewControl.TimeOffset = TimelineScrollBar.Value;
+			hypnogramControl1.SetMarkerPosition(TimelineScrollBar.Value);
 			graphViewControl.Invalidate();
 		}
 
