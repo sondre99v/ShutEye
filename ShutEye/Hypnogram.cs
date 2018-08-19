@@ -13,6 +13,8 @@ namespace ShutEye
 
 		public SleepStage[] SleepStages { get; private set; }
 
+		public double Duration => SleepStages.Length / SampleRate;
+
 		public SleepStage GetSleepStageAtTime(double timeOffset)
 		{
 			int index = (int) Math.Floor(timeOffset * SampleRate);

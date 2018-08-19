@@ -13,7 +13,7 @@ namespace ShutEye
 	public partial class HypnogramControl: Control
 	{
 		private Hypnogram _hypnogram;
-		private float _markerPosition;
+		private double _markerPosition;
 
 		public HypnogramControl()
 		{
@@ -21,16 +21,16 @@ namespace ShutEye
 			DoubleBuffered = true;
 			InitializeComponent();
 		}
-		
+
 		public void SetHypnogram(Hypnogram hypnogram)
 		{
 			_hypnogram = hypnogram;
 			Invalidate();
 		}
 
-		public void SetMarkerPosition(float position)
+		public void SetMarkerPosition(double position)
 		{
-			_markerPosition = (float)(position * _hypnogram.SampleRate);
+			_markerPosition = position;
 			Invalidate();
 		}
 
@@ -51,16 +51,17 @@ namespace ShutEye
 				int x = Width * i / _hypnogram.SleepStages.Length;
 				int y = _hypnogram.SleepStages[i].GetValue() * 8 + 2;
 
-				if (i != 0)
+				if(i != 0)
 				{
-					pe.Graphics.DrawLine(Pens.Black, px, py, x, y);
+					pe.Graphics.DrawLine(Pens.Black, px, py, px, y);
+					pe.Graphics.DrawLine(Pens.Black, px, y, x, y);
 				}
 
 				px = x;
 				py = y;
 			}
 
-			int markerX = (int)(Width * _markerPosition / _hypnogram.SleepStages.Length);
+			int markerX = (int) ((Width - 1) * _markerPosition / _hypnogram.Duration);
 
 			pe.Graphics.DrawLine(Pens.Red, markerX, 0, markerX, Height);
 

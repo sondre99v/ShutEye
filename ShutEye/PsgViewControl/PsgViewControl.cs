@@ -52,6 +52,9 @@ namespace ShutEye
 
 			ChannelHeadersPanel.LoadHeaders(PsgData.Channels);
 			ChannelScrollBar.Maximum = PsgData.Channels.Length * 57;
+			ChannelScrollBar.SmallChange = 57;
+			ChannelScrollBar.LargeChange = graphViewControl.Height;
+
 			graphViewControl.AddChannelRange(PsgData.Channels);
 		}
 
@@ -83,24 +86,6 @@ namespace ShutEye
 			rs.LoadFromSelections(file, graphViewControl.ChannelsData.ToArray(), graphViewControl.Selections.ToArray());
 
 			rs.SaveToFile(filename);
-
-			//int sampleRate = (int)PsgData.Channels[0].SampleRate;
-
-			//List<string> lines = new List<string>();
-			//lines.Add("Sample Rate for EEG:");
-			//lines.Add(sampleRate.ToString());
-			//lines.Add("Starttidspunkt for EEG (klokkeslett):");
-			//lines.Add("00.00.00");
-			//lines.Add("Liste over alle registrerte søvnspindler, med start og sluttidspunkt (enhet: Hz (men egentlig ikke)).");
-			//lines.Add("");
-			//lines.Add("Start Slutt");
-
-			//foreach (Selection selection in graphViewControl.Selections)
-			//{
-			//	lines.Add($"{(int)(selection.StartTime * sampleRate)} {(int)(selection.EndTime * sampleRate)}");
-			//}
-
-			//System.IO.File.WriteAllLines(filename, lines.ToArray());
 
 			Console.WriteLine($"Saved {graphViewControl.Selections.Count} selections.");
 		}
@@ -140,7 +125,7 @@ namespace ShutEye
 
 		public void SkipForward()
 		{
-			graphViewControl.TimeOffset += Width / graphViewControl.ScaleX * 0.8F;
+			graphViewControl.TimeOffset += TimelineScrollBar.SmallChange;
 			if(graphViewControl.TimeOffset > TimelineScrollBar.Maximum) graphViewControl.TimeOffset = TimelineScrollBar.Maximum;
 
 			TimelineScrollBar.Value = (int) graphViewControl.TimeOffset;
@@ -150,7 +135,7 @@ namespace ShutEye
 
 		public void SkipBackward()
 		{
-			graphViewControl.TimeOffset -= Width / graphViewControl.ScaleX * 0.8F;
+			graphViewControl.TimeOffset -= TimelineScrollBar.SmallChange;
 			if(graphViewControl.TimeOffset < 0) graphViewControl.TimeOffset = 0;
 
 			TimelineScrollBar.Value = (int) graphViewControl.TimeOffset;
@@ -172,6 +157,8 @@ namespace ShutEye
 
 			graphViewControl.OffsetY = ChannelScrollBar.Value;
 			graphViewControl.Invalidate();
+			graphViewControl.Refresh();
+			ChannelHeadersPanel.Refresh();
 		}
 
 		private void ChannelHeaders_ScaleButtonPressed(int channelIndex, float scaleFactor)
