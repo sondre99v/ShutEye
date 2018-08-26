@@ -50,11 +50,11 @@ namespace ShutEye
 				Array.Sort(freqs);
 				if(freqs.Length % 2 == 0)
 				{
-					return (freqs[freqs.Length / 2] + freqs[freqs.Length / 2 + 1]) / 2.0;
+					return (freqs[freqs.Length / 2] + freqs[freqs.Length / 2 - 1]) / 2.0;
 				}
 				else
 				{
-					return freqs[(freqs.Length - 1) / 2];
+					return freqs[freqs.Length / 2];
 				}
 			}
 		}

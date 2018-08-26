@@ -72,19 +72,47 @@ namespace ShutEye
 			AverageSpindleDuration = selections.Sum(s => s.Length) / selections.Length;
 			AverageSpindleFrequency = 0.0F;
 			MedianSpindleFrequency = 0.0F;
-			MostSignificantChannel = "X";
 			SpindleDensity = selections.Length / (edfFile.Header.DurationOfDataRecordInSeconds * edfFile.Header.NumberOfDataRecords);
 			SpindleRatio = selections.Sum(s => s.Length) / (edfFile.Header.DurationOfDataRecordInSeconds * edfFile.Header.NumberOfDataRecords);
+
+			int[] mostSignificantChannelBuckets = new int[channels.Length];
+			List<float> frequencies = new List<float>();
 
 			foreach(Selection s in selections)
 			{
 				var info = new SleepSpindleInformation();
 				info.BestChannel = s.SelectedChannelIndex == -1 ? "none" : channels[s.SelectedChannelIndex].Label;
+				if(s.SelectedChannelIndex != -1)
+				{
+					mostSignificantChannelBuckets[s.SelectedChannelIndex]++;
+				}
+
 				info.Duration = s.Length;
 				info.StartTime = edfFile.Header.StartDateTime + TimeSpan.FromSeconds(s.StartTime);
+				info.AverageFrequency = (float) s.AverageFrequency;
+				info.MedianFrequency = (float) s.MedianFrequency;
+				info.FrequencyInBestChannel = (float) s.SelectedChannelFrequency;
+
+				AverageSpindleFrequency += (float) s.AverageFrequency;
+				frequencies.Add((float) s.MedianFrequency);
 
 				SleepSpindles.Add(info);
 			}
+
+			AverageSpindleFrequency /= selections.Length;
+
+			int fc = frequencies.Count;
+			frequencies.Sort();
+			if(fc % 2 == 0)
+			{
+				MedianSpindleFrequency = (frequencies[fc / 2] + frequencies[fc / 2 - 1]) / 2.0F;
+			}
+			else
+			{
+				MedianSpindleFrequency = frequencies[fc / 2];
+			}
+
+			MostSignificantChannel = channels[mostSignificantChannelBuckets.Max()].Label;
 		}
 
 		public void SaveToFile(string filename)
