@@ -151,6 +151,11 @@ namespace ShutEye
 		public void JumpToNextSelection()
 		{
 			int currentIndex = Selections.FindIndex(s => s.Active);
+			
+			if (currentIndex == -1)
+			{
+				currentIndex = Selections.FindIndex(s => s.StartTime > TimeOffset + ViewDuration / 2);
+			}
 
 			if(currentIndex != -1 && currentIndex + 1 < Selections.Count)
 			{
@@ -165,7 +170,12 @@ namespace ShutEye
 		{
 			int currentIndex = Selections.FindIndex(s => s.Active);
 
-			if(currentIndex != -1 && currentIndex > 0)
+			if (currentIndex == -1)
+			{
+				currentIndex = Selections.FindLastIndex(s => s.EndTime < TimeOffset + ViewDuration / 2);
+			}
+
+			if(currentIndex > 0)
 			{
 				Selections[currentIndex].Active = false;
 				Selections[currentIndex - 1].Active = true;
