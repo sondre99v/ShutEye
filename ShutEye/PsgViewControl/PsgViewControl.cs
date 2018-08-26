@@ -55,6 +55,7 @@ namespace ShutEye
 			ChannelScrollBar.SmallChange = 57;
 			ChannelScrollBar.LargeChange = graphViewControl.Height;
 
+			graphViewControl.Polysomnogram = PsgData;
 			graphViewControl.AddChannelRange(PsgData.Channels);
 		}
 

@@ -38,6 +38,7 @@ namespace ShutEye
 		private Selection _editedSelection;
 		private bool _editingEndEdge;
 
+		public Polysomnogram Polysomnogram { get; set; }
 		public List<Timeseries> ChannelsData { get => _dataChannels.Select(c => c.Timeseries).ToList(); }
 
 		private int _graphShaderProgramID;
@@ -103,7 +104,7 @@ namespace ShutEye
 
 		public void AddSelection(float startTime, float endTime)
 		{
-			Selections.Add(new Selection(startTime, endTime));
+			Selections.Add(new Selection(startTime, endTime, Polysomnogram));
 			Selections.OrderBy(s => s.StartTime);
 		}
 
@@ -378,7 +379,7 @@ namespace ShutEye
 
 			if(!hovering && _editedSelection == null)
 			{
-				_editedSelection = new Selection(ViewXToTime(e.X), ViewXToTime(e.X));
+				_editedSelection = new Selection(ViewXToTime(e.X), ViewXToTime(e.X), Polysomnogram);
 				Selections.Add(_editedSelection);
 				Invalidate();
 			}
@@ -545,7 +546,12 @@ namespace ShutEye
 
 			foreach(Selection s in Selections)
 			{
-				if(s.EndTime > TimeOffset || s.StartTime < TimeOffset + ViewDuration)
+				float s1 = s.StartTime;
+				float s2 = s.EndTime;
+				float v1 = TimeOffset;
+				float v2 = TimeOffset + ViewDuration;
+
+				if(s2 > v1 && s1 < v2 || s1 < v2 && s2 > v1)
 				{
 					int xStart = (int) TimeToViewX(s.StartTime);
 					int xEnd = (int) TimeToViewX(s.EndTime);
@@ -558,6 +564,16 @@ namespace ShutEye
 					if(s.SelectedChannelIndex >= 0)
 					{
 						g.FillRectangle(red, xStart, ChannelHeight * s.SelectedChannelIndex, xEnd - xStart, ChannelHeight);
+					}
+
+					for(int i = 0; i < s.ChannelFrequency.Length; i++)
+					{
+						double frequency = s.ChannelFrequency[i];
+						string freqText = frequency.ToString("0.0") + " Hz";
+
+						g.DrawString(freqText, 
+							new Font(FontFamily.GenericSansSerif, 8.0F), Brushes.Red, 
+							new PointF(xStart + 2.0F, ChannelHeight * (i + 1) - 12.0F));
 					}
 				}
 			}

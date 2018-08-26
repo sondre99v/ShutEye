@@ -43,6 +43,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -148,6 +149,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DSPLib\DSPLib.csproj">
+      <Project>{af93abf4-a4f2-4883-aa8a-ac64251ba441}</Project>
+      <Name>DSPLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EDFRead\EDF.csproj">
       <Project>{70a3a9a6-4d12-484a-8e08-299c78d97316}</Project>
       <Name>EDF</Name>
