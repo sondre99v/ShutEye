@@ -102,10 +102,13 @@ namespace ShutEye
 			_editedSelection = null;
 		}
 
-		public void AddSelection(float startTime, float endTime)
+		public Selection AddSelection(float startTime, float endTime)
 		{
-			Selections.Add(new Selection(startTime, endTime, Polysomnogram));
+			Selection selection = new Selection(startTime, endTime, Polysomnogram);
+			Selections.Add(selection);
 			Selections.OrderBy(s => s.StartTime);
+
+			return selection;
 		}
 
 		public void AddChannel(Timeseries channelData)

@@ -62,9 +62,40 @@ namespace ShutEye
 		public void OpenSelectionFile(string filename)
 		{
 			string[] lines = System.IO.File.ReadAllLines(filename);
-
+			
 			graphViewControl.ClearSelections();
 
+			if (lines[0] == "SPINDELANALYSE")
+			{
+				_loadFromResultsFile(lines);
+			} else
+			{
+				_loadFromFinnespindler(lines);
+			}
+
+			
+			Console.WriteLine($"Loaded {graphViewControl.Selections.Count} selections.");
+		}
+
+		private void _loadFromResultsFile(string[] lines)
+		{
+			int sampleRate = int.Parse(lines[1].Split(';')[1]);
+
+			foreach(string line in lines.Skip(11))
+			{
+				string[] fields = line.Split(';');
+
+				float startTime = float.Parse(fields[1], System.Globalization.CultureInfo.InvariantCulture);
+				float duration = float.Parse(fields[2], System.Globalization.CultureInfo.InvariantCulture);
+				string channelLabel = fields[5];
+
+				Selection s = graphViewControl.AddSelection(startTime, startTime + duration);
+				s.SelectedChannelIndex = Array.FindIndex(PsgData.Channels, c => c.Label == channelLabel);
+			}
+		}
+
+		private void _loadFromFinnespindler(string[] lines)
+		{
 			int sampleRate = int.Parse(lines[1]);
 
 			foreach(string line in lines.Skip(7))
@@ -76,8 +107,6 @@ namespace ShutEye
 
 				graphViewControl.AddSelection((float) startSample / sampleRate, (float) endSample / sampleRate);
 			}
-
-			Console.WriteLine($"Loaded {graphViewControl.Selections.Count} selections.");
 		}
 
 		public void SaveSelectionFile(string filename)

@@ -6,7 +6,7 @@ namespace ShutEye
 {
 	class SleepSpindleInformation
 	{
-		public DateTime StartTime { get; set; }
+		public float StartTime { get; set; }
 		public float Duration { get; set; }
 		public float AverageFrequency { get; set; }
 		public float MedianFrequency { get; set; }
@@ -15,7 +15,7 @@ namespace ShutEye
 
 		public void WriteToStream(StreamWriter sw)
 		{
-			sw.Write(StartTime.ToString("HH:mm:ss") + ";");
+			sw.Write(StartTime.ToString(CultureInfo.InvariantCulture) + ";");
 			sw.Write(Duration.ToString(CultureInfo.InvariantCulture) + ";");
 			sw.Write(AverageFrequency.ToString(CultureInfo.InvariantCulture) + ";");
 			sw.Write(MedianFrequency.ToString(CultureInfo.InvariantCulture) + ";");

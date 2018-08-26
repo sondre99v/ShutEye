@@ -87,8 +87,8 @@ namespace ShutEye
 					mostSignificantChannelBuckets[s.SelectedChannelIndex]++;
 				}
 
+				info.StartTime = s.StartTime;
 				info.Duration = s.Length;
-				info.StartTime = edfFile.Header.StartDateTime + TimeSpan.FromSeconds(s.StartTime);
 				info.AverageFrequency = (float) s.AverageFrequency;
 				info.MedianFrequency = (float) s.MedianFrequency;
 				info.FrequencyInBestChannel = (float) s.SelectedChannelFrequency;
