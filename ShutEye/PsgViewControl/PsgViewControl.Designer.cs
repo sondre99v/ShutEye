@@ -32,7 +32,7 @@
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.ChannelScrollBar = new System.Windows.Forms.VScrollBar();
 			this.graphViewControl = new ShutEye.GLGraphView();
-			this.hypnogramControl1 = new ShutEye.HypnogramControl();
+			this.hypnogramControl = new ShutEye.HypnogramControl();
 			this.ChannelHeadersPanel = new ShutEye.PsgViewChannelHeadersControl();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -40,9 +40,9 @@
 			// TimelineScrollBar
 			// 
 			this.TimelineScrollBar.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TimelineScrollBar.Location = new System.Drawing.Point(52, 299);
+			this.TimelineScrollBar.Location = new System.Drawing.Point(52, 569);
 			this.TimelineScrollBar.Name = "TimelineScrollBar";
-			this.TimelineScrollBar.Size = new System.Drawing.Size(594, 17);
+			this.TimelineScrollBar.Size = new System.Drawing.Size(979, 17);
 			this.TimelineScrollBar.TabIndex = 1;
 			this.TimelineScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.TimelineScrollBar_Scroll);
 			// 
@@ -56,7 +56,7 @@
 			this.tableLayoutPanel1.Controls.Add(this.ChannelHeadersPanel, 0, 0);
 			this.tableLayoutPanel1.Controls.Add(this.graphViewControl, 1, 0);
 			this.tableLayoutPanel1.Controls.Add(this.TimelineScrollBar, 1, 2);
-			this.tableLayoutPanel1.Controls.Add(this.hypnogramControl1, 1, 1);
+			this.tableLayoutPanel1.Controls.Add(this.hypnogramControl, 1, 1);
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -64,15 +64,15 @@
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(663, 316);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(1048, 586);
 			this.tableLayoutPanel1.TabIndex = 5;
 			// 
 			// ChannelScrollBar
 			// 
 			this.ChannelScrollBar.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ChannelScrollBar.Location = new System.Drawing.Point(646, 0);
+			this.ChannelScrollBar.Location = new System.Drawing.Point(1031, 0);
 			this.ChannelScrollBar.Name = "ChannelScrollBar";
-			this.ChannelScrollBar.Size = new System.Drawing.Size(17, 249);
+			this.ChannelScrollBar.Size = new System.Drawing.Size(17, 519);
 			this.ChannelScrollBar.TabIndex = 4;
 			this.ChannelScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ChannelScrollBar_Scroll);
 			// 
@@ -88,21 +88,21 @@
 			this.graphViewControl.Name = "graphViewControl";
 			this.graphViewControl.OffsetY = 0;
 			this.graphViewControl.ScaleX = 100F;
-			this.graphViewControl.Size = new System.Drawing.Size(594, 249);
+			this.graphViewControl.Size = new System.Drawing.Size(979, 519);
 			this.graphViewControl.TabIndex = 3;
 			this.graphViewControl.TimeOffset = 0F;
 			this.graphViewControl.VSync = false;
 			// 
-			// hypnogramControl1
+			// hypnogramControl
 			// 
-			this.hypnogramControl1.BackColor = System.Drawing.Color.Gray;
-			this.hypnogramControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.hypnogramControl1.Location = new System.Drawing.Point(52, 249);
-			this.hypnogramControl1.Margin = new System.Windows.Forms.Padding(0);
-			this.hypnogramControl1.Name = "hypnogramControl1";
-			this.hypnogramControl1.Size = new System.Drawing.Size(594, 50);
-			this.hypnogramControl1.TabIndex = 5;
-			this.hypnogramControl1.Text = "hypnogramControl1";
+			this.hypnogramControl.BackColor = System.Drawing.Color.Gray;
+			this.hypnogramControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.hypnogramControl.Location = new System.Drawing.Point(52, 519);
+			this.hypnogramControl.Margin = new System.Windows.Forms.Padding(0);
+			this.hypnogramControl.Name = "hypnogramControl";
+			this.hypnogramControl.Size = new System.Drawing.Size(979, 50);
+			this.hypnogramControl.TabIndex = 5;
+			this.hypnogramControl.Text = "hypnogramControl1";
 			// 
 			// ChannelHeadersPanel
 			// 
@@ -111,7 +111,7 @@
 			this.ChannelHeadersPanel.Margin = new System.Windows.Forms.Padding(0);
 			this.ChannelHeadersPanel.Name = "ChannelHeadersPanel";
 			this.ChannelHeadersPanel.ScrollPosition = 0;
-			this.ChannelHeadersPanel.Size = new System.Drawing.Size(52, 249);
+			this.ChannelHeadersPanel.Size = new System.Drawing.Size(52, 519);
 			this.ChannelHeadersPanel.TabIndex = 4;
 			// 
 			// PsgViewControl
@@ -120,7 +120,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Name = "PsgViewControl";
-			this.Size = new System.Drawing.Size(663, 316);
+			this.Size = new System.Drawing.Size(1048, 586);
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -132,6 +132,6 @@
 		private PsgViewChannelHeadersControl ChannelHeadersPanel;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.VScrollBar ChannelScrollBar;
-		private HypnogramControl hypnogramControl1;
+		private HypnogramControl hypnogramControl;
 	}
 }

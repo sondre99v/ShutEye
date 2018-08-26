@@ -37,7 +37,7 @@ namespace ShutEye
 
 		public void SetHypnogram(Hypnogram hypnogram)
 		{
-			hypnogramControl1.SetHypnogram(hypnogram);
+			hypnogramControl.SetHypnogram(hypnogram);
 		}
 
 		public void SetEdfFile(EDFFile file, ChannelConfiguration[] configurations)
@@ -129,7 +129,7 @@ namespace ShutEye
 			if(graphViewControl.TimeOffset > TimelineScrollBar.Maximum) graphViewControl.TimeOffset = TimelineScrollBar.Maximum;
 
 			TimelineScrollBar.Value = (int) graphViewControl.TimeOffset;
-			hypnogramControl1.SetMarkerPosition(TimelineScrollBar.Value);
+			hypnogramControl.SetMarkerPosition(TimelineScrollBar.Value);
 			Invalidate();
 		}
 
@@ -139,14 +139,14 @@ namespace ShutEye
 			if(graphViewControl.TimeOffset < 0) graphViewControl.TimeOffset = 0;
 
 			TimelineScrollBar.Value = (int) graphViewControl.TimeOffset;
-			hypnogramControl1.SetMarkerPosition(TimelineScrollBar.Value);
+			hypnogramControl.SetMarkerPosition(TimelineScrollBar.Value);
 			Invalidate();
 		}
 
 		private void TimelineScrollBar_Scroll(object sender, ScrollEventArgs e)
 		{
 			graphViewControl.TimeOffset = TimelineScrollBar.Value;
-			hypnogramControl1.SetMarkerPosition(TimelineScrollBar.Value);
+			hypnogramControl.SetMarkerPosition(TimelineScrollBar.Value);
 			graphViewControl.Invalidate();
 		}
 
