@@ -532,7 +532,7 @@ namespace ShutEye
 				}
 				else
 				{
-					text = $"{firstSelectedIndex}";
+					text = $"{firstSelectedIndex}, {Selections[firstSelectedIndex].Length: 0.00} s";
 				}
 
 				g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
@@ -571,8 +571,8 @@ namespace ShutEye
 						double frequency = s.ChannelFrequency[i];
 						string freqText = frequency.ToString("0.0") + " Hz";
 
-						g.DrawString(freqText, 
-							new Font(FontFamily.GenericSansSerif, 8.0F), Brushes.Red, 
+						g.DrawString(freqText,
+							new Font(FontFamily.GenericSansSerif, 8.0F), Brushes.Red,
 							new PointF(xStart + 2.0F, ChannelHeight * (i + 1) - 12.0F));
 					}
 				}
