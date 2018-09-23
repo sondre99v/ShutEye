@@ -459,6 +459,11 @@ namespace ShutEye
 			base.OnMouseUp(e);
 		}
 
+		private void ClampTimeOffset()
+		{
+			if (TimeOffset < 0) TimeOffset = 0;
+		}
+
 		protected override void OnKeyDown(KeyEventArgs e)
 		{
 			switch(e.KeyCode)
@@ -477,10 +482,14 @@ namespace ShutEye
 					break;
 				case Keys.Oemplus:
 					ScaleX *= 1.5F;
+					TimeOffset += (1.5F - 1.0F) / 2 * ViewDuration;
+					ClampTimeOffset();
 					Invalidate();
 					break;
 				case Keys.OemMinus:
 					ScaleX /= 1.5F;
+					TimeOffset += (1 / 1.5F - 1.0F) / 2 * ViewDuration;
+					ClampTimeOffset();
 					Invalidate();
 					break;
 			}
