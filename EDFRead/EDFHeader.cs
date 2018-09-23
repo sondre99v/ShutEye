@@ -323,19 +323,19 @@ namespace EDF
                 charIndex += 8;
 
                 char[] physical_min = getFixedLengthCharArrayFromHeader(signals, (i * 8) + (this.NumberOfSignalsInDataRecord * charIndex), 8);
-                edf_signal.PhysicalMinimum = float.Parse(new string(physical_min).Trim());
+                edf_signal.PhysicalMinimum = float.Parse(new string(physical_min).Trim(), System.Globalization.CultureInfo.InvariantCulture);
                 charIndex += 8;
 
                 char[] physical_max = getFixedLengthCharArrayFromHeader(signals, (i * 8) + (this.NumberOfSignalsInDataRecord * charIndex), 8);
-                edf_signal.PhysicalMaximum = float.Parse(new string(physical_max).Trim());
+                edf_signal.PhysicalMaximum = float.Parse(new string(physical_max).Trim(), System.Globalization.CultureInfo.InvariantCulture);
                 charIndex += 8;
 
                 char[] digital_min = getFixedLengthCharArrayFromHeader(signals, (i * 8) + (this.NumberOfSignalsInDataRecord * charIndex), 8);
-                edf_signal.DigitalMinimum = float.Parse(new string(digital_min).Trim());
+                edf_signal.DigitalMinimum = float.Parse(new string(digital_min).Trim(), System.Globalization.CultureInfo.InvariantCulture);
                 charIndex += 8;
 
                 char[] digital_max = getFixedLengthCharArrayFromHeader(signals, (i * 8) + (this.NumberOfSignalsInDataRecord * charIndex), 8);
-                edf_signal.DigitalMaximum = float.Parse(new string(digital_max).Trim());
+                edf_signal.DigitalMaximum = float.Parse(new string(digital_max).Trim(), System.Globalization.CultureInfo.InvariantCulture);
                 charIndex += 8;
 
                 char[] prefiltering = getFixedLengthCharArrayFromHeader(signals, (i * 80) + (this.NumberOfSignalsInDataRecord * charIndex), 80);

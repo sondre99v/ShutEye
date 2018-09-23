@@ -170,7 +170,6 @@
 			this.psgViewControl1.Name = "psgViewControl1";
 			this.psgViewControl1.Size = new System.Drawing.Size(685, 365);
 			this.psgViewControl1.TabIndex = 0;
-			this.psgViewControl1.Zoom = 10D;
 			// 
 			// loadHypnogramToolStripMenuItem
 			// 

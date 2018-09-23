@@ -475,6 +475,14 @@ namespace ShutEye
 					JumpToPreviousSelection();
 					Invalidate();
 					break;
+				case Keys.Oemplus:
+					ScaleX *= 1.5F;
+					Invalidate();
+					break;
+				case Keys.OemMinus:
+					ScaleX /= 1.5F;
+					Invalidate();
+					break;
 			}
 			base.OnKeyDown(e);
 		}

@@ -18,7 +18,10 @@ namespace ShutEye
 	{
 		public int ChannelSeparation { get; set; } = 10;
 		public double ChannelScale { get; set; } = 0.25;
-		public double Zoom { get; set; } = 10;
+		public float TimeScale {
+			get => graphViewControl.ScaleX;
+			set => graphViewControl.ScaleX = value;
+		}
 
 		private Polysomnogram PsgData;
 		private EDFFile file;
