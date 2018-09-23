@@ -14,6 +14,9 @@ namespace ShutEye
 {
 	class GLGraphView: GLControl
 	{
+		/// <summary>
+		/// Time offset of left edge of view
+		/// </summary>
 		public float TimeOffset { get; set; } = 0.0F;
 		/// <summary>
 		/// Scale x in pixels pr. second
@@ -22,6 +25,9 @@ namespace ShutEye
 		public int OffsetY { get; set; } = 0;
 		public int ChannelHeight { get; set; } = 57;
 
+		/// <summary>
+		/// Duration of the data in view
+		/// </summary>
 		public float ViewDuration => Width / ScaleX;
 
 		private struct Channel
@@ -569,7 +575,7 @@ namespace ShutEye
 				g.DrawString(text, new Font(FontFamily.GenericSansSerif, 12.0F), Brushes.White, new PointF(0, 0));
 			}
 
-
+			// Draw selections
 			Brush blue25 = new SolidBrush(Color.FromArgb(64, Color.Blue));
 			Brush blue50 = new SolidBrush(Color.FromArgb(96, Color.Blue));
 			Brush red = new SolidBrush(Color.FromArgb(64, Color.Red));
@@ -608,7 +614,27 @@ namespace ShutEye
 				}
 			}
 
+			// Draw time scale
+			float leftEdgeTime = TimeOffset;
+			float rightEdgeTime = TimeOffset + ViewDuration;
+			
+			const int bigTickSize = 10;
+			const int smallTickSize = 5;
+			Font tickFont = new Font(FontFamily.GenericSansSerif, 7.0F);
+			Color tickColor = Color.LightGray;
 
+			for (int second = (int)Math.Floor(leftEdgeTime); second <= (int)Math.Floor(rightEdgeTime); second++)
+			{
+				g.DrawLine(new Pen(tickColor), TimeToViewX(second), Height - bigTickSize, TimeToViewX(second), Height);
+				g.DrawString(second.ToString(), tickFont, new SolidBrush(tickColor), TimeToViewX(second) + 2, Height - (smallTickSize + 2 + tickFont.Height));
+
+				for(int tenth = 1; tenth < 10; tenth++)
+				{
+					g.DrawLine(new Pen(tickColor), TimeToViewX(0.1F * tenth + second), Height - smallTickSize, TimeToViewX(0.1F * tenth + second), Height);
+				}
+			}
+
+			// Send overlay to GPU
 			BitmapData data = _overlayBmp.LockBits(new Rectangle(0, 0, _overlayBmp.Width, _overlayBmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
 			GL.BindTexture(TextureTarget.Texture2D, _overlayTextureID);
