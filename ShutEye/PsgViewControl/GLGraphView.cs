@@ -480,10 +480,12 @@ namespace ShutEye
 					break;
 				case Keys.D:
 					JumpToNextSelection();
+					ClampTimeOffset();
 					Invalidate();
 					break;
 				case Keys.A:
 					JumpToPreviousSelection();
+					ClampTimeOffset();
 					Invalidate();
 					break;
 				case Keys.Oemplus:

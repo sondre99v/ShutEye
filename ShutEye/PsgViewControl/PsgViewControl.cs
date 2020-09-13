@@ -159,7 +159,7 @@ namespace ShutEye
 		public void SkipForward()
 		{
 			graphViewControl.TimeOffset += TimelineScrollBar.SmallChange;
-			if(graphViewControl.TimeOffset > TimelineScrollBar.Maximum) graphViewControl.TimeOffset = TimelineScrollBar.Maximum;
+			graphViewControl.TimeOffset = Math.Max(0, Math.Min(TimelineScrollBar.Maximum, graphViewControl.TimeOffset));
 
 			TimelineScrollBar.Value = (int) graphViewControl.TimeOffset;
 			hypnogramControl.SetMarkerPosition(TimelineScrollBar.Value);
@@ -169,7 +169,7 @@ namespace ShutEye
 		public void SkipBackward()
 		{
 			graphViewControl.TimeOffset -= TimelineScrollBar.SmallChange;
-			if(graphViewControl.TimeOffset < 0) graphViewControl.TimeOffset = 0;
+			graphViewControl.TimeOffset = Math.Max(0, Math.Min(TimelineScrollBar.Maximum, graphViewControl.TimeOffset));
 
 			TimelineScrollBar.Value = (int) graphViewControl.TimeOffset;
 			hypnogramControl.SetMarkerPosition(TimelineScrollBar.Value);
